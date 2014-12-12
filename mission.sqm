@@ -702,7 +702,7 @@ class Mission
 					rank="CORPORAL";
 					skill=0.33333331;
 					text="alpha_12";
-					description="Saboteur [DHQL]Ninjahh";
+					description="Saboteur [DHQL]Ninjah";
 				};
 				class Item12
 				{
