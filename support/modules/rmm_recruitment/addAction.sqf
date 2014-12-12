@@ -1,6 +1,6 @@
 waitUntil{!isNil "bis_fnc_init"};
 
-_this addAction ["Recruitment",CBA_fnc_actionargument_path, [[],{createDialog  "RMM_ui_recruitment"}], -1, false, true, "", "rank _this in [""CORPORAL"",""SERGEANT"",""LIEUTENANT""];"];
+_this addAction ["Recruitment",CBA_fnc_actionargument_path, [[],{createDialog  "RMM_ui_recruitment"}], -1, false, true, "", "rank _this in [""SERGEANT"",""LIEUTENANT"",""CAPTAIN"",""COLONEL""];"];
 
 _this addAction ["Team Status", "support\modules\rmm_recruitment\TeamStatusDialog\TeamStatusDialog.sqf", [
       ["Page", "Team"], // Page to show initially (only include 1 of these 4 "Page" options)
