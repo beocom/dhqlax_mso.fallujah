@@ -1,0 +1,315 @@
+M16A2_Set:
+  M16A2: Iron Sight
+  ACE_m16a2_scope: Scope
+
+M16A2GL_Set:
+  M16A2GL: Iron Sight
+  ACE_M16A2GL_UP: hidden
+  ACE_m16a2gl_scope: Scope
+  ACE_m16a2gl_scope_UP: hidden
+
+M16A4_Set:
+  ACE_M16A4_Iron: Iron Sight / PEQ-15
+  m16a4: M68 CCO / PEQ-15
+  m16a4_acg: ACOG / PEQ-15
+
+M16A4_GL_Set:
+  M16A4_GL: Iront Sight / PEQ-15
+  ACE_M16A4_CCO_GL: M68 CCO / PEQ-15
+  ACE_M16A4_CCO_GL_UP: hidden
+  ACE_M16A4_EOT_GL: EoTech / PEQ-15
+  ACE_M16A4_EOT_GL_UP: hidden
+  M16A4_ACG_GL: ACOG / PEQ-15
+  ACE_M16A4_ACG_GL_UP: hidden
+
+M4A1_Set:
+  ACE_M4A1_C: Iron Sight
+  M4A1: Iron Sight / PEQ-15
+  ACE_M4A1_F: hidden
+  M4A1_Aim: M68 CCO / PEQ-15
+  ACE_M4A1_Aim_F: hidden
+  ACE_M4A1_Aim_SD: M68 CCO / Silencer / PEQ-15
+  ACE_M4A1_Aim_SD_F: hidden
+  ACE_M4A1_EoTech: EoTech / PEQ-15
+  ACE_M4A1_EoTech_F: hidden
+  ACE_M4A1_EOT_SD: EoTech / Silencer / PEQ-15
+  ACE_M4A1_EOT_SD_F: hidden
+  ACE_M4A1_ACOG: ACOG / PEQ-15
+  ACE_M4A1_ACOG_F: hidden
+  ACE_M4A1_ACOG_PVS14: ACOG / PVS-14 / PEQ-15
+  ACE_M4A1_ACOG_PVS14_F: hidden
+  ACE_M4A1_ACOG_SD: ACOG / Silencer / PEQ-15
+  ACE_M4A1_ACOG_SD_F: hidden
+
+M4A1_GL_Set:
+  ACE_M4A1_GL: Iron Sight / PEQ-15
+  ACE_M4A1_GL_UP: hidden
+  ACE_M4A1_GL_F: hidden
+  ACE_M4A1_GL_UP_F: hidden
+  ACE_M4A1_GL_SD: Iron Sight / Silencer / PEQ-15
+  ACE_M4A1_GL_SD_UP: hidden
+  ACE_M4A1_GL_SD_F: hidden
+  ACE_M4A1_GL_SD_UP_F: hidden
+  M4A1_RCO_GL: ACOG / PEQ-15
+  ACE_M4A1_RCO_GL: hidden
+  ACE_M4A1_RCO2_GL: hidden
+  ACE_M4A1_RCO2_GL_F: hidden
+  ACE_M4A1_RCO2_GL_UP_F: hidden
+  M4A1_HWS_GL: EoTech / PEQ-15
+  ACE_M4A1_HWS_GL_UP: hidden
+  ACE_M4A1_HWS_GL_F: hidden
+  ACE_M4A1_HWS_GL_UP_F: hidden
+  ACE_M4A1_AIM_GL: M68 CCO / PEQ-15
+  ACE_M4A1_AIM_GL_UP: hidden
+  ACE_M4A1_AIM_GL_F: hidden
+  ACE_M4A1_AIM_GL_UP_F: hidden
+  ACE_M4A1_AIM_GL_SD: M68 CCO / Silencer / PEQ-15
+  ACE_M4A1_AIM_GL_SD_UP: hidden
+  ACE_M4A1_AIM_GL_SD_F: hidden
+  ACE_M4A1_AIM_GL_SD_UP_F: hidden
+
+SOC_M4A1_Set:
+  ACE_SOC_M4A1: Iron Sight / PEQ-15
+  ACE_SOC_M4A1_Aim: Micro CCO / PEQ-15
+  ACE_SOC_M4A1_AIM_SD: Micro CCO / Silencer / PEQ-15
+  ACE_SOC_M4A1_SHORTDOT: Short Dot / PEQ-15
+  ACE_SOC_M4A1_SHORTDOT_F: hidden
+  ACE_SOC_M4A1_SHORTDOT_SD: Short Dot / Silencer / PEQ-15
+  ACE_SOC_M4A1_SHORTDOT_SD_F: hidden
+  ACE_SOC_M4A1_TWS: TWS / PEQ-15
+  ACE_SOC_M4A1_TWS_F: hidden
+  ACE_SOC_M4A1_EoTech: EoTech / PEQ-15
+  ACE_SOC_M4A1_EoTech_4x: EoTech 4x / PEQ-15
+  ACE_SOC_M4A1_EoTech_F: hidden
+  ACE_SOC_M4A1_EoTech_4x_F: hidden
+
+SOC_M4A1_GL_Set:
+  ACE_SOC_M4A1_GL: Iron Sight / PEQ-15
+  ACE_SOC_M4A1_GL_UP: hidden
+  ACE_SOC_M4A1_GL_SD: Iron Sight / Silencer / PEQ-15
+  ACE_SOC_M4A1_GL_SD_UP: hidden
+  ACE_SOC_M4A1_GL_SD_F: hidden
+  ACE_SOC_M4A1_GL_SD_UP_F: hidden
+  ACE_SOC_M4A1_GL_AIMPOINT: Micro CCO / PEQ-15
+  ACE_SOC_M4A1_RCO_GL: ACOG / PEQ-15
+  ACE_SOC_M4A1_RCO_GL_UP: hidden
+  ACE_SOC_M4A1_RCO_GL_F: hidden
+  ACE_SOC_M4A1_RCO_GL_UP_F: hidden
+  ACE_SOC_M4A1_GL_EoTech: EoTech / PEQ-15
+
+M4A1_camo_Set:
+  M4A1_Aim_camo: No Silencer
+  M4A1_AIM_SD_camo: Silencer
+
+M4A1_camo_GL_Set:
+  M4A1_HWS_GL_camo: EoTech
+  ACE_M4A1_HWS_GL_camo_UP: hidden
+  M4A1_HWS_GL_SD_Camo: EoTech / Silencer
+  ACE_M4A1_HWS_GL_SD_Camo_UP: hidden
+
+M4_Set:
+  ACE_M4_C: Iron Sight
+  ACE_M4: Iron Sight / PEQ-15
+  ACE_M4_F: hidden
+  ACE_M4_Aim: M68 CCO / PEQ-15
+  ACE_M4_Aim_F: hidden
+  ACE_M4_ACOG: ACOG / PEQ-15
+  ACE_M4_ACOG_F: hidden
+  ACE_M4_ACOG_PVS14: ACOG / PVS-14 / PEQ-15
+  ACE_M4_ACOG_PVS14_F: hidden
+  ACE_M4_EoTech: EoTech / PEQ-15
+  ACE_M4_EoTech_F: hidden
+
+M4_GL_Set:
+  ACE_M4_GL: Iron Sight / PEQ-15
+  ACE_M4_GL_UP: hidden
+  ACE_M4_GL_F: hidden
+  ACE_M4_GL_UP_F: hidden
+  ACE_M4_RCO_GL: ACOG / PEQ-15
+  ACE_M4_RCO_GL_UP: hidden
+  ACE_M4_RCO_GL_F: hidden
+  ACE_M4_RCO_GL_UP_F: hidden
+  ACE_M4_EoTech_GL: EoTech / PEQ-15
+  ACE_M4_EoTech_GL_UP: hidden
+  ACE_M4_EoTech_GL_F: hidden
+  ACE_M4_EoTech_GL_UP_F: hidden
+
+M14_Set:
+  M14_EP1: M68 CCO
+  ACE_M14_ACOG: ACOG
+
+M249_Set:
+  M249_EP1: Iron Sight
+  ACE_M249_AIM: M68 CCO
+  M249_m145_EP1: M145
+  ACE_M249_PIP_ACOG: ACOG
+  M249_TWS_EP1: TWS
+
+M249Para_Set:
+  ACE_M249Para: Iron sight
+  ACE_M249Para_M145: M145
+
+M240L_Set:
+  ACE_M240L: Iron Sight
+  ACE_M240L_M145: M145
+
+SCAR_L_CQC_Set:
+  ACE_SCAR_L_CQC: Iron Sight / PEQ-15
+  SCAR_L_CQC: hidden
+  ACE_SCAR_L_CQC_EoTech: EoTech / PEQ-15
+  ACE_SCAR_L_CQC_EoTech_EGLM: EoTech / EGLM / PEQ-15
+  SCAR_L_CQC_CCO_SD: M68 CCO / Silencer / PEQ-15
+
+SCAR_L_Set:
+  SCAR_L_STD_HOLO: EoTech / PEQ-15
+  SCAR_L_STD_Mk4CQT: Mk4CQT / PEQ-15
+  SCAR_L_STD_EGLM_RCO: RCO / EGLM / PEQ-15
+  SCAR_L_STD_EGLM_TWS: TWS / EGLM / PEQ-15
+  ACE_SCAR_L_SPECTER: Specter / PEQ-15
+  ACE_SCAR_L_ACOG: ACOG / PEQ-15
+  ACE_SCAR_L_SNIPER: Sniper Scope / PEQ-15
+
+SCAR_H_CQC_Set:
+  SCAR_H_CQC_CCO: No Silencer
+  SCAR_H_CQC_CCO_SD: Silencer
+
+SCAR_H_Set:
+  ACE_SCAR_H_STD_Spect: RCO
+  SCAR_H_STD_EGLM_Spect: RCO / EGLM
+  SCAR_H_STD_TWS_SD: TWS / Silencer
+
+SCAR_H_LNG_Set:
+  SCAR_H_LNG_Sniper: No Silencer
+  SCAR_H_LNG_Sniper_SD: Silencer
+
+G36C_Set:
+  G36C: Iron Sight
+  G36_C_SD_eotech: EoTech / Silencer
+
+G36C_camo_Set:
+  G36C_camo: No Silencer
+  G36_C_SD_camo: Silencer
+
+G36A2_Set:
+  ACE_G36A2: No Bipod
+  ACE_G36A2_F: hidden
+  ACE_G36A2_D: hidden
+  ACE_G36A2_D_F: hidden
+  ACE_G36A2_Bipod: Bipod
+  ACE_G36A2_Bipod_D: hidden
+  ACE_G36A2_AG36A2: AG36
+  ACE_G36A2_AG36A2_UP: hidden
+  ACE_G36A2_AG36A2_F: hidden
+  ACE_G36A2_AG36A2_UP_F: hidden
+
+G36K_Set:
+  G36K: hidden
+  ACE_G36K_iron: Iron Sight
+  ACE_G36K_iron_D: hidden
+  ACE_G36K: Dual Sights
+  ACE_G36K_D: hidden
+  ACE_G36K_EoTech: EoTech
+  ACE_G36K_EoTech_D: hidden
+
+HK416_D10_Set:
+  ACE_HK416_D10: Iron Sight
+  ACE_HK416_D10_SD: Iron sight / Silencer
+  ACE_HK416_D10_AIM: Micro CCO
+  ACE_HK416_D10_COMPM3: CompM3 CCO
+  ACE_HK416_D10_COMPM3_SD: CompM3 CCO / Silencer
+  ACE_HK416_D10_Holo: EoTech
+  ACE_HK416_D10_M320: Iron Sight / M320
+  ACE_HK416_D10_M320_UP: hidden
+
+HK416_D14_Set:
+  ACE_HK416_D14: Iron Sight
+  ACE_HK416_D14_SD: Iron Sight / Silencer
+  ACE_HK416_D14_COMPM3: CompM3 CCO
+  ACE_HK416_D14_COMPM3_M320: CompM3 CCO / M320
+  ACE_HK416_D14_COMPM3_M320_UP: hidden
+  ACE_HK416_D14_ACOG_PVS14: ACOG / PVS-14
+  ACE_HK416_D14_TWS: TWS
+
+HK417_Set:
+  ACE_HK417_Shortdot: Short Dot
+  ACE_HK417_micro: Micro CCO
+  ACE_HK417_EoTech_4x: EoTech 4x
+
+L85A2_Set:
+  BAF_L85A2_RIS_Holo: EoTech / PEQ-2
+  BAF_L85A2_UGL_Holo: EoTech / L123A2 / PEQ-2
+  BAF_L85A2_RIS_ACOG: ACOG / PEQ-2
+  BAF_L85A2_UGL_ACOG: ACOG / L123A2 / PEQ-2
+  BAF_L85A2_RIS_SUSAT: SUSAT / PEQ-2
+  BAF_L85A2_UGL_SUSAT: SUSAT / L123A2 / PEQ-2
+  BAF_L85A2_RIS_CWS: TWS / PEQ-2
+
+L7A2_Set:
+  BAF_L7A2_GPMG: Iron Sight
+  ACE_BAF_L7A2_GPMG: M145
+  ACE_BAF_L7A2_Tri: hidden
+
+G3A3_Set:
+  ACE_G3A3: Iron Sight
+  ACE_G3A3_RSAS: RSAS
+
+M1014_Set:
+  M1014: Iron Sights
+  ACE_M1014_EoTech: EoTech
+
+M110_Set:
+  M110_NVG_EP1: NVG
+  M110_TWS_EP1: TWS
+
+ACE_M110_Set:
+  ACE_M110: No Silencer
+  ACE_M110_SD: Silencer
+
+M27_Set:
+  ACE_M27_IAR: Iron Sight
+  ACE_M27_IAR_CCO: CCO
+  ACE_M27_IAR_ACOG: ACOG
+
+TAC50_Set:
+  ACE_TAC50: No Silencer
+  ACE_TAC50_SD: Silencer
+
+AS50_Set:
+  BAF_AS50_scoped: Scope
+  BAF_AS50_TWS: TWS
+
+m8_carbine_Set:
+  m8_carbine: Stock Sight
+  m8_carbine_pmc: CCO
+  m8_carbineGL: CCO / M320
+
+m8_compact_Set:
+  m8_compact: Stock Sight
+  m8_compact_pmc: EoTech
+  m8_holo_sd: EoTech / Silencer
+  m8_tws: TWS
+  m8_tws_sd: TWS / Silencer
+
+MP5_Set:
+  MP5A5: hidden
+  MP5SD: hidden
+  ACE_MP5A5: No Silencer
+  ACE_MP5SD: Silencer
+
+UMP45_Set:
+  ACE_UMP45: Iron Sight
+  ACE_UMP45_SD: Iron Sight / Silencer
+  ACE_UMP45_AIM: CCO
+  ACE_UMP45_AIM_SD: CCO / Silencer
+
+Sa58V_Set:
+  Sa58V_CCO_EP1: CCO
+  Sa58V_RCO_EP1: RCO
+
+M9_Set:
+  M9: No Silencer
+  M9SD: Silencer
+
+USP_Set:
+  ACE_USP: No Silencer
+  ACE_USPSD: Silencer

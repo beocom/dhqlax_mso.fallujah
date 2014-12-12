@@ -1,0 +1,297 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, AI_Driver_Pickup">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"end",1,250,-178.959015,-861.384521,-88.958862,-811.384644,0.000000,"end"};
+item1[] = {"server",4,218,-524.615723,-1035.959961,-434.615723,-985.959961,0.000000,"server"};
+item2[] = {"not_server",4,218,-178.997986,-1034.711426,-88.997795,-984.711182,0.000000,"not" \n "server"};
+item3[] = {"check",2,250,-524.800171,-859.636475,-434.800171,-809.636475,0.000000,"check"};
+item4[] = {"start",0,250,-350.436737,-1033.313232,-260.436737,-983.313354,0.000000,"start"};
+item5[] = {"pickup",4,4314,-669.825745,-782.684265,-579.825745,-732.684265,0.000000,"pickup"};
+item6[] = {"dead",4,218,-353.137390,-861.116394,-263.137390,-811.116394,5.000000,"dead"};
+item7[] = {"array",4,218,-526.162964,-730.939697,-436.163055,-680.939697,2.000000,"array"};
+item8[] = {"radio",4,218,-681.664551,-880.354492,-591.664551,-830.354492,0.000000,"radio"};
+item9[] = {"looking",4,218,-366.456085,-754.567017,-276.456085,-704.567017,3.000000,"looking"};
+item10[] = {"dis",4,218,-650.587646,-983.944092,-560.587646,-933.944092,0.000000,"dis"};
+link0[] = {1,3};
+link1[] = {2,0};
+link2[] = {3,5};
+link3[] = {3,6};
+link4[] = {3,7};
+link5[] = {3,8};
+link6[] = {3,9};
+link7[] = {3,10};
+link8[] = {4,1};
+link9[] = {4,2};
+link10[] = {5,3};
+link11[] = {6,0};
+link12[] = {7,3};
+link13[] = {8,3};
+link14[] = {9,3};
+link15[] = {10,3};
+globals[] = {0.000000,0,0,0,0,640,480,2,510,6316128,1,-736.289734,53.417095,-443.397552,-1227.510254,847,841,1};
+window[] = {0,-1,-1,-1,-1,1220,123,1723,239,1,866};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "AI_Driver_Pickup";
+  class States
+  {
+    /*%FSM<STATE "end">*/
+    class end
+    {
+      name = "end";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "check">*/
+    class check
+    {
+      name = "check";
+      init = /*%FSM<STATEINIT""">*/"" \n
+       "//_liftpos = _mylift distance _player;" \n
+       "" \n
+       "if (_loop == 4) then " \n
+       "{" \n
+       "Hint ""YOUR LIFT CANT MAKE IT.\nCALLING AGAIN"";" \n
+       "_called = 0;" \n
+       "_pickup = 0;" \n
+       "_mycararray = [];" \n
+       "_mylifttmp = _mylift;" \n
+       "_mylift = objnull;" \n
+       "};" \n
+       "" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "dead">*/
+        class dead
+        {
+          priority = 5.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_loop > 6) or (pickup) or !(alive _player) or (_player != vehicle _player) or (_mylift distance _player < 50) or (!(alive _mylift) && (_called == 1)))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"" \n
+           "if(alive _player) then " \n
+           "{" \n
+           "_player addAction [""Request Pickup"", ""FSM\Vehicle\playeraction.sqf"",[],0,false,false,"""", ""(isplayer _this)""];" \n
+           "};" \n
+           "" \n
+           "_player removeAction _pc; " \n
+           "" \n
+           "if (!(alive _mylift) && (_called == 1)) then " \n
+           "{" \n
+           "Hint ""YOUR LIFT IS DEAD"";" \n
+           "};" \n
+           "" \n
+           "" \n
+           "if (_loop > 6) then " \n
+           "{" \n
+           "Hint ""YOUR LIFT CANT MAKE IT.\nCALL AGAIN"";" \n
+           "};" \n
+           "" \n
+           "" \n
+           "if (_mylift distance _player < 60) then" \n
+           "{" \n
+           "_initcode = ""this domove position "" + format [""%1"",_player];" \n
+           "_mylift setVehicleInit _initcode; " \n
+           "processInitCommands;" \n
+           "clearVehicleInit _mylift;" \n
+           "};" \n
+           "" \n
+           "" \n
+           "" \n
+           "if (pickup) then " \n
+           "{" \n
+           "Hint ""PICKUP CANCELLED"";" \n
+           "};" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "looking">*/
+        class looking
+        {
+          priority = 3.000000;
+          to="check";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(((_called ==  0) && (alive _player) && (time > (_timeout + 10))) or ((_mylift emptypositions ""Driver"") == 1))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_called = 0;" \n
+           "_pickup = 0;" \n
+           "_mycararray = [];" \n
+           "" \n
+           "_mycararraytmp = (nearestObjects [_player, [""CAR"",""TANK""], 3000]);" \n
+           "" \n
+           "_mycararraytmp = _mycararraytmp - [_mylifttmp];" \n
+           "" \n
+           "{if (((_x emptypositions ""Driver"") == 0) && (side (driver _x) == side _player) && ((_x emptypositions ""Gunner"") == 0) && (((_x emptypositions ""Commander"") == 1) or ((_x emptypositions ""Cargo"") > 0)))  then {_mycararray set [count _mycararray,_x]}} foreach _mycararraytmp;" \n
+           "" \n
+           "_loop = _loop + 1;" \n
+           "_timeout = time;" \n
+           "" \n
+           "" \n
+           "hint ""SCANNING"";"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "array">*/
+        class array
+        {
+          priority = 2.000000;
+          to="check";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_called == 0) && (count _mycararray > 0))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_mylift = (_mycararray select 0);" \n
+           "" \n
+           "_loop = 0;" \n
+           "_called = 1;" \n
+           "" \n
+           "_liftpos = _mylift distance _player;" \n
+           "" \n
+           "" \n
+           "//hint ""REQUESTING"";"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "radio">*/
+        class radio
+        {
+          priority = 0.000000;
+          to="check";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(((_called == 1) && (time > (_radiotime + 20))) or (behaviour _mylift != _behaviour))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_radiotime = time;" \n
+           "" \n
+           "/*" \n
+           "if(behaviour _mylift != _behaviour) then " \n
+           "{" \n
+           "if (behaviour _mylift in _combatmodes) then" \n
+           "{" \n
+           " hint ""WE ARE TAKING FIRE"";" \n
+           "};" \n
+           "};" \n
+           "*/" \n
+           "" \n
+           "" \n
+           "_behaviour = behaviour _mylift;" \n
+           "" \n
+           "" \n
+           "hint format[""%1 \n%2 \n%3"",typeof _mylift,_behaviour,_mylift distance _player];"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "dis">*/
+        class dis
+        {
+          priority = 0.000000;
+          to="check";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_called == 1) && (_mylift distance _player >= _liftpos) && (time > (_timeout + 10)))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_loop = _loop + 1;" \n
+           "_timeout = time;" \n
+           "_initcode = ""this domove position "" + format [""%1"",_player];" \n
+           "" \n
+           "_mylift setVehicleInit _initcode; " \n
+           "processInitCommands;" \n
+           "clearVehicleInit _mylift;" \n
+           "" \n
+           "" \n
+           "hint format[""%1 \n%2 \n%3"",typeof _mylift,""ENGAGING ENEMY"",_mylift distance _player];"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "pickup">*/
+        class pickup
+        {
+          priority = 0.000000;
+          to="check";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((alive _mylift) && (_called == 1) && (_pickup == 0))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"" \n
+           "" \n
+           "" \n
+           "	if ((_mylift emptypositions ""Cargo"") > 0) then {_initcode = ""this domove position "" + format [""%1"",_player] + "";"" + format [""%1"",_player] + "" assignAsCargo this;["" + format [""%1"",_player] + ""] orderGetIn true;""};" \n
+           "	if ((_mylift emptypositions ""Commander"") == 1) then {_initcode = ""this domove position "" + format [""%1"",_player] + "";"" + format [""%1"",_player] + "" assignAsCommander this;["" + format [""%1"",_player] + ""] orderGetIn true;""};" \n
+           "//	if ((_mylift emptypositions ""Gunner"") == 1) then {_initcode = ""this domove position "" + format [""%1"",_player] + "";"" + format [""%1"",_player] + "" assignAsGunner this;["" + format [""%1"",_player] + ""] orderGetIn true;""};" \n
+           "" \n
+           "_mylift setVehicleInit _initcode; " \n
+           "processInitCommands;" \n
+           "clearVehicleInit _mylift;" \n
+           "" \n
+           "" \n
+           "" \n
+           "//hint format[""%1 \n%2 \n%3"",typeof _mylift,assignedVehicleRole _player,_mylift distance _player];" \n
+           "unassignVehicle _player;" \n
+           "" \n
+           "_pickup = 1;" \n
+           "_radiotime = time;" \n
+           "_timeout = (time + 10);" \n
+           "" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "start">*/
+    class start
+    {
+      name = "start";
+      init = /*%FSM<STATEINIT""">*/"// Script by Zonekiller  -- http://zonekiller.ath.cx --    -- zonekiller@live.com.au --" \n
+       "" \n
+       "" \n
+       "" \n
+       "_player = _this select 0;" \n
+       "_id = _this select 1;" \n
+       "" \n
+       "_player removeAction _id; " \n
+       "pickup = false;" \n
+       "" \n
+       "_pc = _player addAction [""Cancel Pickup"", ""FSM\Vehicle\playeractionC.sqf"",[],0,false,false,"""", ""(isplayer _this)""];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "not_server">*/
+        class not_server
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(isDedicated)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "server">*/
+        class server
+        {
+          priority = 0.000000;
+          to="check";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(isDedicated)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_mycararraytmp = [];" \n
+           "_mycararray = [];" \n
+           "_mylift = objnull;" \n
+           "_mylifttmp = objnull;" \n
+           "_initcode = """";" \n
+           "_radiotime = time;" \n
+           "_safemodes = [""CARELESS"", ""SAFE"", ""AWARE""]; " \n
+           "_combatmodes = [""COMBAT"",""STEALTH""]; " \n
+           "_called = 0;" \n
+           "_loop = 0;" \n
+           "_timeout = (time - 15);" \n
+           "_liftpos = 0;" \n
+           "_behaviour = behaviour _mylift;" \n
+           "_pickup = 0;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="start";
+  finalStates[] =
+  {
+    "end",
+  };
+};
+/*%FSM</COMPILE>*/

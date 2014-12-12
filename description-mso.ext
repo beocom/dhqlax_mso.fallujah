@@ -1,0 +1,367 @@
+#include <core\modules\modules.hpp>
+#include <ambience\modules\modules.hpp>
+#include <support\modules\modules.hpp>
+#include <enemy\modules\modules.hpp>
+
+//http://community.bistudio.com/wiki/Description.ext#Respawn...
+respawn = 3;
+respawnDelay = 15;
+respawnDialog = false;
+
+class CfgSounds {
+#ifdef CRB_DOGS
+	#include <ambience\modules\crb_dogs\cfgsounds.hpp>
+#endif
+#ifdef RMM_CTP
+	#include <ambience\modules\rmm_ctp\cfgsounds.hpp>
+#endif
+#ifdef AEG
+	#include <ambience\modules\AEG\Sounds\AEG_Sounds.hpp>
+#endif
+#ifdef TUP_IED
+	#include <enemy\modules\tup_ied\CfgSounds.hpp>
+#endif
+#ifdef ROY_PATROLOPS
+#include <enemy\modules\roy_patrolops\mps\dialog\mps_sounds.sqf>
+#endif
+};
+
+//http://community.bistudio.com/wiki/Arma_2:_Patch_v1.03.58899_Beta#How_to_add_multiple_parameters_to_your_MP_mission
+class Params {
+#ifdef BIS_WARFARE
+// BIS Warfare Params must go first
+	#include <enemy\modules\BIS_Warfare\params.hpp>
+#endif
+class coreHeader {
+        title = "Core"; 
+        values[]= {0}; 
+        texts[]= {" "}; 
+        default = 0;
+};
+#ifdef RMM_DEBUG
+	#include <core\modules\rmm_debug\params.hpp>
+#endif
+#ifdef ADMINACTIONS
+	#include <core\modules\adminActions\params.hpp>
+#endif
+#ifdef RMM_MP_RIGHTS
+	#include <core\modules\rmm_mp_rights\params.hpp>
+#endif
+#ifdef RMM_NOMAD
+	#include <core\modules\rmm_nomad\params.hpp>
+#endif
+#ifdef persistentDB
+	#include <core\modules\persistentDB\params.hpp>
+#endif
+#ifdef RMM_GTK
+	#include <core\modules\rmm_gtk\params.hpp>
+#endif
+#ifdef RMM_SETTINGS
+	#include <core\modules\rmm_settings\params.hpp>
+#endif
+#ifdef CRB_TIMESYNC
+	#include <core\modules\crb_timesync\params.hpp>
+#endif
+#ifdef VEHICLEIGNITIONKEYS
+	#include <core\modules\vehicleIgnitionKeys\params.hpp>
+#endif
+class ambientHeader {
+        title = "Ambience"; 
+        values[]= {0}; 
+        texts[]= {" "}; 
+        default = 0;
+};
+#ifdef CRB_CIVILIANS
+	#include <ambience\modules\crb_civilians\params.hpp>
+#endif
+#ifdef CRB_EMERGENCY
+	#include <ambience\modules\crb_emergency\params.hpp>
+#endif
+#ifdef CRB_DOGS
+	#include <ambience\modules\crb_dogs\params.hpp>
+#endif
+#ifdef CRB_SHEPHERDS
+	#include <ambience\modules\crb_shepherds\params.hpp>
+#endif
+#ifdef CRB_DESTROYCITY
+	#include <ambience\modules\crb_destroyCity\params.hpp>
+#endif
+#ifdef TUP_AIRTRAFFIC
+	#include <ambience\modules\tup_airtraffic\params.hpp>
+#endif
+#ifdef TUP_SEATRAFFIC
+	#include <ambience\modules\tup_seatraffic\params.hpp>
+#endif
+#ifdef AEG
+	#include <ambience\modules\AEG\params.hpp>
+#endif
+class supportHeader {
+        title = "Support"; 
+        values[]= {0}; 
+        texts[]= {" "}; 
+        default = 0;
+};
+#ifdef RMM_CAS
+	#include <support\modules\rmm_cas\params.hpp>
+#endif
+#ifdef CRB_TWNMGR
+	#include <support\modules\CRB_twnmgr\params.hpp>
+#endif
+#ifdef BIS_SOM
+	#include <support\modules\bis_som\params.hpp>
+#endif
+#ifdef WHB_MULTISPAWN
+	#include <support\modules\WHB_Multispawn\params.hpp>
+#endif
+#ifdef R3F_REVIVE
+	#include "support\modules\R3F_revive\params.hpp"
+#endif
+#ifdef CREWINFO
+	#include <support\modules\crewinfo\params.hpp>
+#endif
+#ifdef MGO
+#include "support\modules\mgo\main\script_params.hpp"
+#endif
+#ifdef PXS_SATCOM_OA
+#include "support\modules\pxs_satcom_oa\params.hpp"
+#endif
+
+class enemyHeader {
+        title = "Enemy"; 
+        values[]= {0}; 
+        texts[]= {" "}; 
+        default = 0;
+};
+#ifdef RMM_ENEMYPOP
+	#include <enemy\modules\rmm_enemypop\params.hpp>
+#endif
+#ifdef RYD_HAC
+	#include <enemy\modules\ryd_hac\params.hpp>
+#endif
+#ifdef CRB_CONVOYS
+	#include <enemy\modules\crb_convoys\params.hpp>
+#endif
+#ifdef TUP_IED
+	#include <enemy\modules\tup_ied\params.hpp>
+#endif
+#ifdef CRB_TERRORISTS
+	#include <enemy\modules\crb_terrorists\params.hpp>
+#endif
+#ifdef CQB_POP
+	#include <enemy\modules\CQB_POP\params.hpp>
+#endif
+#ifdef RMM_ZORA
+	#include <enemy\modules\RMM_ZORA\params.hpp>
+#endif
+#ifdef MSOFACTIONS
+	#include <enemy\msofactions.hpp>
+#endif
+#ifdef ROY_PATROLOPS
+	#include <enemy\modules\roy_patrolops\params.hpp>
+#endif
+#ifdef WICT_ENEMYPOP
+	#include <enemy\modules\WICT_enemypop\params.hpp>
+#endif
+}; 
+
+#ifdef R3F_LOGISTICS
+	#include <support\modules\R3F_logistics\desc_include.h>
+#endif
+
+class RscTitles
+{
+#ifdef R3F_LOGISTICS
+	#include <support\modules\R3F_logistics\desc_rsct_include.h>
+#endif
+#ifdef CREWINFO
+#include <support\modules\crewinfo\dialog.hpp>
+#endif
+};
+
+//http://community.bistudio.com/wiki/Functions_Library
+class cfgFunctions {
+	#include <core\functions\functions.hpp>
+	#include <ambience\functions\functions.hpp>
+#ifdef CRB_DOGS
+	#include <ambience\modules\crb_dogs\functions.hpp>
+#endif
+#ifdef RMM_HELP
+	#include <core\modules\rmm_help\functions.hpp>
+#endif
+#ifdef CEP_CACHE
+	#include <core\modules\cep_cache\functions.hpp>
+#endif
+#ifdef NOU_CACHE
+	#include <core\modules\nou_cache\functions.hpp>
+#endif
+#ifdef RMM_OSOM
+	#include <core\modules\rmm_osom\functions.hpp>
+#endif
+#ifdef RMM_WEATHER
+	#include <core\modules\rmm_weather\functions.hpp>
+#endif
+
+#ifdef RMM_AAR
+	#include <support\modules\rmm_aar\functions.hpp>
+#endif
+#ifdef RMM_CAS
+	#include <support\modules\rmm_cas\functions.hpp>
+#endif
+#ifdef RMM_CASEVAC
+	#include <support\modules\rmm_casevac\functions.hpp>
+#endif
+#ifdef RMM_CNSTRCT
+	#include <support\modules\rmm_cnstrct\functions.hpp>
+#endif
+#ifdef CRB_FLIPPABLE
+	#include <support\modules\crb_flippable\functions.hpp>
+#endif
+#ifdef RMM_JIPMARKERS
+	#include <support\modules\rmm_jipmarkers\functions.hpp>
+#endif
+#ifdef TN_LHDELEVATOR
+	#include <support\modules\tn_lhdelevator\functions.hpp>
+#endif
+#ifdef RMM_LOGBOOK
+	#include <support\modules\rmm_logbook\functions.hpp>
+#endif
+#ifdef RMM_RECRUITMENT
+	#include <support\modules\rmm_recruitment\functions.hpp>
+#endif
+#ifdef RMM_LOGISTICS
+	#include <support\modules\rmm_logistics\functions.hpp>
+#endif
+#ifdef TUP_LOGISTICS
+	#include <support\modules\tup_logistics\functions.hpp>
+#endif
+#ifdef RMM_NOTEBOOK
+	#include <support\modules\rmm_notebook\functions.hpp>
+#endif
+#ifdef RMM_REVIVE
+	#include <support\modules\rmm_revive\functions.hpp>
+#endif
+
+#ifdef RMM_TASKS
+	#include <support\modules\rmm_tasks\functions.hpp>
+#endif
+#ifdef RMM_TYRES
+	#include <support\modules\rmm_tyres\functions.hpp>
+#endif
+#ifdef TUP_IED
+	#include <enemy\modules\tup_ied\functions.hpp>
+#endif
+};
+
+//http://community.bistudio.com/wiki/PreProcessor_Commands
+#include <core\dialogs\c_ui.hpp>
+
+#ifdef RMM_DEBUG
+	#include <core\modules\rmm_debug\dialog.hpp>
+#endif
+#ifdef RMM_HELP
+	#include <core\modules\rmm_help\dialog.hpp>
+#endif
+#ifdef RMM_SETTINGS
+	#include <core\modules\rmm_settings\dialog.hpp>
+#endif
+#ifdef persistentDB
+	#include <core\modules\persistentDB\dialog.hpp>
+#endif
+#ifdef AEG
+	#include "ambience\modules\AEG\Dialogs\AEG_Dialogs.hpp"
+#endif
+#ifdef RMM_AAR
+	#include <support\modules\rmm_aar\dialog.hpp>
+#endif
+#ifdef RMM_CAS
+	#include <support\modules\rmm_cas\dialog.hpp>
+#endif
+#ifdef RMM_CASEVAC
+	#include <support\modules\rmm_casevac\dialog.hpp>
+#endif
+#ifdef RMM_JIPMARKERS
+	#include <support\modules\rmm_jipmarkers\dialog.hpp>
+#endif
+#ifdef RMM_LOGBOOK
+	#include <support\modules\rmm_logbook\dialog.hpp>
+#endif
+#ifdef RMM_LOGISTICS
+	#include <support\modules\rmm_logistics\dialog.hpp>
+#endif
+#ifdef TUP_LOGISTICS
+	#include <support\modules\tup_logistics\dialog.hpp>
+#endif
+#ifdef RMM_NOTEBOOK
+	#include <support\modules\rmm_notebook\dialog.hpp>
+#endif
+#ifdef RMM_RECRUITMENT
+	#include <support\modules\rmm_recruitment\dialog.hpp>
+	#include <support\modules\rmm_recruitment\TeamStatusDialog\TeamStatusDialog.hpp>
+#endif
+#ifdef RMM_TASKS
+	#include <support\modules\rmm_tasks\dialog.hpp>
+#endif
+#ifdef ROY_PATROLOPS
+#include <enemy\modules\roy_patrolops\mps\dialog\mps_dialog.hpp>
+#endif
+#ifdef TUP_IED
+#include <enemy\modules\tup_ied\dialog.hpp>
+#endif
+#ifdef R3F_REVIVE
+	#include "support\modules\R3F_revive\dlg_attente_reanimation.h"
+#endif
+#ifdef PXS_SATCOM_OA
+#include "support\modules\pxs_satcom_oa\init_interference.hpp"
+#endif
+
+
+// Extended Event Handlers
+#ifdef persistentDB
+	class Extended_PreInit_Eventhandlers
+	{
+		unit_killed_preinit = "persistent_fnc_unitKilled = compile preprocessFile 'core\modules\persistentDB\unitKilled.sqf'" ;
+	};
+	class Extended_Killed_Eventhandlers
+	{
+		class LANDVEHICLE
+		{
+			landvehicle_killed = "_this call persistent_fnc_unitKilled";
+		};
+		class MAN
+		{
+			man_killed = "_this call persistent_fnc_unitKilled";
+		};
+		class AIR
+		{
+			air_killed = "_this call persistent_fnc_unitKilled";
+		};
+		class SHIP
+		{
+			ship_killed = "_this call persistent_fnc_unitKilled";
+		};
+	};
+#endif
+
+// Add BAF and TK Flight groups
+class CfgGroups {
+#ifdef TUP_AIRTRAFFIC
+	#include <ambience\modules\tup_airtraffic\cfggroups.hpp>
+#endif
+};
+
+class CfgAmmo
+{
+#ifdef CRB_CIVILIANS
+ class Default;
+ class BulletBase;
+ class GrenadeHand;
+ class GrenadeHand_stone: GrenadeHand
+ {
+  hit = 7;
+  indirectHit = 0.2;
+  indirectHitRange = 1;
+  soundHit[] = {"Ca\sounds\Weapons\hits\rico_hit_wood_08",15.848933,1};
+ };
+#endif
+};
+

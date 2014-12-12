@@ -1,0 +1,52 @@
+<html>
+<h1>Group TracKer (GTK)</h1>
+<h2>Author(s) and Acknoledgement(s):</h2>
+<ul>Rommel</ul>
+<h2>Requirements:</h2>
+<ul>
+	<li>CBA</li>
+</ul>
+<h2>Description:</h2>
+<pre>
+The group tracker (GTK) module tracks the positions of all groups, and depending on their range from the player, calls a function specified in the config.hpp file. This can be useful for monitoring groups proximity to the player.
+The module works by creating location logics for each group specified, and then (ideally) syncing those logics to the groups position each cycle, through the sync function.
+As the player enters within a specified distance of the location logic, it activates the group by calling the active function; and vice versa when the player leaves the distance (inactive function).
+</pre>
+<h2>How-to-use:</h2>
+<pre>
+The GTK config file is the important file to control how the group tracker module is used. Shown below is a commented description of what you would expect to find in the config.hpp file.
+
+	case (YOUR_CASE_NUMBER) : { // SYSTEM_NAME
+		[
+			{FNC_SYNC},
+			{FNC_ACTIVE},
+			{FNC_INACTIVE}
+		]
+	};
+
+All functions are only parsed the Location Logic for the particular group.
+</pre>
+<ul>
+<li>YOUR_CASE_NUMBER is used in the execution to specify this set of functions.</li>
+<li>SYSTEM_NAME is the name of this set of functions.</li>
+<li>FNC_SYNC is the function that is called for the tracking logic.</li>
+<li>FNC_ACTIVE is the function that is called when the group goes active.</li>
+<li>FNC_INACTIVE is the function that is called when the group goes inactive.</li>
+</ul>
+<pre>
+	
+Make sure to place the following line in the description.ext:
+
+	#include "modules\osom\functions.hpp"
+
+Now to use the GTK in the editor, place a Game logic or other object, synchronise the required groups to be tracked, and paste the following code (or similar):
+		
+	this setvariable ["range", 50]; this setvariable ["type",0]; this setvariable ["sleep", 10]; 0 = this execvm "modules\GTK\tracker.sqf"
+		
+This will set the tracking range from the player to 50m, with the config case number of 0, and a cycle rate of 10s.
+This could also be done through:
+
+	0 = [[group1, group2], 50, 0, 10] execvm "modules\GTK\tracker.sqf"
+
+</pre>
+</html>

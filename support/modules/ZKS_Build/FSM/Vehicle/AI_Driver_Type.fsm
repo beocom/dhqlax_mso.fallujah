@@ -1,0 +1,264 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, AI_Driver_Type">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"end",1,250,-350.621826,-698.600830,-260.621674,-648.600952,0.000000,"end"};
+item1[] = {"AIR",4,218,-524.615723,-1035.959961,-434.615753,-985.960083,0.000000,"AIR"};
+item2[] = {"CAR",4,218,-178.997986,-1034.711426,-88.997795,-984.711182,0.000000,"CAR"};
+item3[] = {"not_server",4,218,-350.003845,-917.110107,-260.003967,-867.110352,0.000000,"not server"};
+item4[] = {"start",0,4346,-350.436737,-1033.313232,-260.436737,-983.313354,0.000000,"start"};
+link0[] = {1,0};
+link1[] = {2,0};
+link2[] = {3,0};
+link3[] = {4,1};
+link4[] = {4,2};
+link5[] = {4,3};
+globals[] = {0.000000,0,0,0,0,640,480,2,502,6316128,1,-549.038940,-133.833115,-519.070923,-1142.723633,492,739,1};
+window[] = {0,-1,-1,-1,-1,951,72,1833,72,1,511};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "AI_Driver_Type";
+  class States
+  {
+    /*%FSM<STATE "end">*/
+    class end
+    {
+      name = "end";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "start">*/
+    class start
+    {
+      name = "start";
+      init = /*%FSM<STATEINIT""">*/"// Script by Zonekiller  -- http://zonekiller.ath.cx --    -- zonekiller@live.com.au --" \n
+       "" \n
+       "_car = _this select 0;" \n
+       "" \n
+       "_mydooranimation = [];" \n
+       "_myanimation = [];" \n
+       "_isaction = 0;" \n
+       "_mydoors = 0;" \n
+       "_initcode = """";" \n
+       "_nameon = """";" \n
+       "_nameoff = """";" \n
+       "_conditionon = """";" \n
+       "_conditionoff = """";" \n
+       "_mytype = [];" \n
+       "_cargo = 0;" \n
+       "" \n
+       "" \n
+       "_notactions = [""Doors"",""ReloadAnim"",""ReloadMagazine"",""Revolving"",""HIDE_weapon_holders"",""HIDE_front_armor"",""HIDE_exhaust"",""Select_TOW"",""Select_Stinger"",""HUDAction"",""HUDaction"",""HUDAction_1"",""HUDaction_Hide"",""VTOL"",""HatchAction"",""hide_chute"",""weaponbay""];" \n
+       "_mydoors = (count(configFile >> ""CfgVehicles"" >> typeof _car >> ""AnimationSources"" >> ""Doors""));" \n
+       "" \n
+       "if (_mydoors > 0) then {" \n
+       "" \n
+       "_mydooranimation = [[""dvere_l_vrch"",0],[""dvere_l_spod"",0],[""dvere_p_vrch"",0],[""dvere_p_spod"",0]];" \n
+       "_doortype = ""dvere_l_vrch"";" \n
+       "" \n
+       "" \n
+       "if ((vehicle _car isKindOf ""Ka60_GL_PMC"") or (vehicle _car isKindOf ""Ka60_PMC""))  then {_doortype = ""dvere1"";_mydooranimation = [[""dvere1"",0],[""dvere1_posunZ"",0],[""dvere2"",0]]};" \n
+       "if (vehicle _car isKindOf ""BAF_Merlin_HC3_D"") then {_doortype = ""dvere_l_pop"";_mydooranimation = [[""dvere_p"",1],[""dvere_p_pop"",1],[""dvere_l"",1],[""dvere_l_pop"",1]]};" \n
+       "" \n
+       "" \n
+       "if (!(vehicle _car isKindOf ""BAF_Merlin_HC3_D"")) then {" \n
+       "_initcode = _initcode + ""this addAction ['Close Doors' , 'FSM\Vehicle\action.sqf',[this getVariable 'mydooranimation',0,0],0,false,false,'','player in (crew _target) and _target animationPhase ""+ str(_doortype) + "" > 0.5 AND Alive(_target)'];"";" \n
+       "_initcode = _initcode + ""this addAction ['Open Doors' , 'FSM\Vehicle\action.sqf',[this getVariable 'mydooranimation',1,0],0,false,false,'','player in (crew _target) and _target animationPhase "" + str(_doortype) + "" < 0.5 AND Alive(_target)'];"";" \n
+       "};" \n
+       "" \n
+       "" \n
+       "if (vehicle _car isKindOf ""BAF_Merlin_HC3_D"") then {" \n
+       "_initcode = _initcode + ""this addAction ['Close Doors' , 'FSM\Vehicle\action.sqf',[this getVariable 'mydooranimation',0,0],0,false,false,'','player in (crew _target) and _target animationPhase ''dvere_p'' < 0.5 AND Alive(_target)'];"";" \n
+       "_initcode = _initcode + ""this addAction ['Open Doors' , 'FSM\Vehicle\action.sqf',[this getVariable 'mydooranimation',1,0],0,false,false,'','player in (crew _target) and _target animationPhase ''dvere_p'' > 0.5 AND Alive(_target)'];"";" \n
+       "};" \n
+       "" \n
+       "" \n
+       "[_car,_mydooranimation] execFSM ""FSM\Vehicle\AI_Driver_doors.fsm"";" \n
+       "" \n
+       "" \n
+       "};" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "if (count (configFile >> ""CfgVehicles"" >> typeof _car >> ""AnimationSources"") > 0) then " \n
+       "{" \n
+       "" \n
+       "" \n
+       "" \n
+       "_comp = configFile >> ""CfgVehicles"" >> typeof _car;" \n
+       "" \n
+       "" \n
+       "	if ((isClass _comp) && (count (_comp >> ""AnimationSources"") > 0)) then " \n
+       "	{" \n
+       "		for ""_z"" from 0 to ((count (_comp >> ""AnimationSources"")) - 1) do " \n
+       "		{" \n
+       "		_anim = ((_comp >> ""AnimationSources"") select _z);" \n
+       "" \n
+       "			if ((gettext(_anim >> ""source"") == ""user"") && !(configName(_anim) in _notactions)) then " \n
+       "			{" \n
+       "			_myanimation set [count _myanimation, [configName(_anim),(getnumber(_anim >> ""initPhase""))]];" \n
+       "			};" \n
+       "		};" \n
+       "	};" \n
+       "" \n
+       "" \n
+       "if (count _myanimation > 0) then {" \n
+       "_car setVariable [""myanimation"", _myanimation, true];" \n
+       "};" \n
+       "" \n
+       "if (count _myanimation > 0) then {" \n
+       "" \n
+       "{" \n
+       "_isaction = 0;" \n
+       "_type = (_x select 0);" \n
+       "" \n
+       "switch (_type) do {" \n
+       "	case ""ramp_top"" : {_isaction = 1;_nameon = ""Close Ramp""; _nameoff = ""Open Ramp""; _conditionon = ""player in (crew _target) and _target animationPhase 'ramp_top' > 0.5 AND Alive(_target)""; _conditionoff = ""player in (crew _target) and _target animationPhase 'ramp_top' < 0.5 AND Alive(_target)""};" \n
+       "	case ""turn_wing"" : {_isaction = 1;_nameon = ""UnFold Wing""; _nameoff = ""Fold Wing""; _conditionon = ""player in (crew _target) and _target animationPhase 'turn_wing' > 0.5 AND Alive(_target) and !(isengineon _target)""; _conditionoff = ""player in (crew _target) and _target animationPhase 'turn_wing' < 0.5 AND Alive(_target) and !(isengineon _target)""};" \n
+       "	case ""mainRotor_unfolded"" : {_isaction = 1;_nameon = ""UnFold Rotor""; _nameoff = ""Fold Rotor""; _conditionon = ""player in (crew _target) and _target animationPhase 'mainRotor_unfolded' > 0.5 AND Alive(_target) and !(isengineon _target)""; _conditionoff = ""player in (crew _target) and _target animationPhase 'mainRotor_unfolded' < 0.5 AND Alive(_target) and !(isengineon _target)""};" \n
+       "	case ""Antena1"" : {_isaction = 1;_nameon = ""Scope Down""; _nameoff = ""Scope Up""; _conditionon = ""player in (crew _target) and _target animationPhase 'Antena1' > 0.5 AND Alive(_target) and (isengineon _target)""; _conditionoff = ""player in (crew _target) and _target animationPhase 'Antena1' < 0.5 AND Alive(_target) and (isengineon _target)""};" \n
+       "	case ""HideGun_01"" : {_isaction = 1;_nameon = ""Show Gun""; _nameoff = ""Hide Gun""; _conditionon = ""player in (crew _target) and _target animationPhase 'HideGun_01' > 0.5 AND Alive(_target)""; _conditionoff = ""player in (crew _target) and _target animationPhase 'HideGun_01' < 0.5 AND Alive(_target)""};" \n
+       "	case ""MainTurret"" : {_isaction = 1;_nameon = ""Hide Gun""; _nameoff = ""Show Gun""; _conditionon = ""player in (crew _target) and _target animationPhase 'MainTurret' > 0.5 AND Alive(_target)""; _conditionoff = ""player in (crew _target) and _target animationPhase 'MainTurret' < 0.5 AND Alive(_target)""};" \n
+       "	case ""HatchAction"" : {_isaction = 1;_nameon = ""Close Hatch""; _nameoff = ""Open Hatch""; _conditionon = ""player in (crew _target) and _target animationPhase 'HatchAction' < 0.5 AND Alive(_target)""; _conditionoff = ""player in (crew _target) and _target animationPhase 'HatchAction' > 0.5 AND Alive(_target)""};" \n
+       "};" \n
+       "" \n
+       "//	case ""ramp"" : {_isaction = 1;_nameon = ""Close Ramp""; _nameoff = ""Open Ramp""; _conditionon = ""player in (crew _target) and _target animationPhase 'Ramp' > 0.5 AND Alive(_target)""; _conditionoff = ""player in (crew _target) and _target animationPhase 'Ramp' < 0.5 AND Alive(_target)""};" \n
+       "" \n
+       "" \n
+       "if (_isaction == 1) then {" \n
+       "_mytype set [count _mytype, _type];" \n
+       "_initcode = _initcode + ""this addAction ["" + str(_nameon) + "", """"FSM\Vehicle\action.sqf"""",[this getVariable """"myanimation"""",0,0],0,false,false,"""""""","" + str(_conditionon) + ""];"";" \n
+       "_initcode = _initcode + ""this addAction ["" + str(_nameoff) + "", """"FSM\Vehicle\action.sqf"""",[this getVariable """"myanimation"""",1,0],0,false,false,"""""""","" + str(_conditionoff) + ""];"";" \n
+       "};" \n
+       "" \n
+       "} foreach _myanimation; " \n
+       "" \n
+       "};" \n
+       "" \n
+       "if (count _myanimation > 0) then {[_car,_myanimation,_mytype] execFSM ""FSM\Vehicle\AI_Driver_Fold.fsm""};" \n
+       "" \n
+       "if ((_car emptypositions ""Cargo"") > 0) then " \n
+       "{" \n
+       "_car setVariable [""mydooranimation"", _mydooranimation, true];" \n
+       "_cargo = 1;" \n
+       "_initcode = _initcode + ""this addAction ['Eject Troops' , 'FSM\Vehicle\ejectaction.sqf',[this getVariable 'mydooranimation'],0,false,false,'','player in (crew _target) and (count (assignedCargo _target) > 0) AND Alive(_target)'];"";" \n
+       "" \n
+       "};" \n
+       "" \n
+       "" \n
+       "if ((count _myanimation > 0) or (_mydoors > 0) or (_cargo == 1)) then {" \n
+       "" \n
+       "_car setVehicleInit _initcode; " \n
+       "processInitCommands;" \n
+       "clearVehicleInit _car;" \n
+       "" \n
+       "//if ((count crew _car == 0) && ((typeof _car) != ""tank"")) then " \n
+       "" \n
+       "if (count crew _car == 0) then " \n
+       "{" \n
+       "_myphase = 1;" \n
+       "_phase = 0;" \n
+       "" \n
+       "{" \n
+       "if ((_x select 1) == _myphase) then {_phase = 0}else{_phase = 1};" \n
+       "_car animate [(_x select 0),_phase];" \n
+       "} foreach _myanimation;" \n
+       "};" \n
+       "" \n
+       "};" \n
+       "" \n
+       "};" \n
+       "" \n
+       "" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "CAR">*/
+        class CAR
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(!(vehicle _car isKindOf ""AIR"") && (isServer))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_car addEventHandler [""Dammaged"",{_this execVM ""FSM\vehicle\Fire.sqf""}];" \n
+           "" \n
+           "_car addEventHandler [""GetOut"",{unassignVehicle (_this select 2)}];" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "not_server">*/
+        class not_server
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(isServer)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "AIR">*/
+        class AIR
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((vehicle _car isKindOf ""AIR"") && (isServer))" \n
+           "" \n
+           ""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"" \n
+           "_car setVehicleInit ""_nil = this addEventHandler[""""IncomingMissile"""",{if (player in (_this select 0)) then {(_this select 0) vehicleChat """"WARNING: Incoming Missile"""";playSound """"Incoming""""};}];"";" \n
+           "processInitCommands;" \n
+           "clearVehicleInit _car;" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           "/*" \n
+           "_car addEventHandler [""GetOut"",{_height = getpos (_this select 2) select 2;" \n
+           "if (_height < 15) then {(_this select 2) setpos [(getpos (_this select 2) select 0) + .1,(getpos (_this select 2) select 1) + .1,0]};" \n
+           "unassignVehicle (_this select 2);" \n
+           "if (_Script_Diag == 1) then {hint ""Im Out""};" \n
+           "}];" \n
+           "*/" \n
+           "" \n
+           "" \n
+           "if (vehicle _car isKindOf ""Plane"") then {" \n
+           "_car addEventHandler [""LandedTouchDown"",{" \n
+           "if (player in (_this select 0)) then {(_this select 0) vehicleChat ""MESSAGE: Armed and Repaired"";};" \n
+           "(_this select 0) setfuel 1;(_this select 0) setVehicleAmmo 1;(_this select 0) setDamage 0;" \n
+           "if (_Script_Diag == 1) then {hint ""Im Down & Fixed""};" \n
+           "{unassignVehicle _x} foreach assignedCargo (_this select 0);" \n
+           "}];" \n
+           "" \n
+           "};" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="start";
+  finalStates[] =
+  {
+    "end",
+  };
+};
+/*%FSM</COMPILE>*/

@@ -1,0 +1,1 @@
+((findDisplay 80599) displayCtrl 1) ctrlSetStructuredText parseText (loadFile help_file);

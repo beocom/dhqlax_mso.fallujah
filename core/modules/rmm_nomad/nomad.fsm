@@ -1,0 +1,255 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, nomad">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"wait",4,218,350.000000,250.000000,450.000000,300.000000,0.000000,"wait"};
+item1[] = {"start",0,4346,350.000000,175.000000,450.000000,225.000000,0.000000,"start"};
+item2[] = {"wait",3,250,350.000000,475.000000,450.000000,525.000000,0.000000,"wait"};
+item3[] = {"time___wait",4,218,475.000000,550.000000,575.000000,600.000000,0.000000,"time > wait"};
+item4[] = {"update",3,250,350.000000,550.000000,450.000000,600.000000,0.000000,"update"};
+item5[] = {"disconnect",1,250,100.000000,400.000000,200.000000,450.000000,0.000000,"disconnect"};
+item6[] = {"exit",1,250,100.000000,175.000000,200.000000,225.000000,0.000000,"exit"};
+item7[] = {"SP_or_isServer",4,218,225.000000,175.000000,325.000000,225.000000,1.000000,"SP or" \n "isServer"};
+item8[] = {"player_init",2,250,350.000000,325.000000,450.000000,375.000000,0.000000,"player init"};
+item9[] = {"_",8,218,350.000000,400.000000,450.000000,450.000000,0.000000,""};
+item10[] = {"_",8,218,225.000000,550.000000,325.000000,600.000000,0.000000,""};
+item11[] = {"disconnect",4,218,225.000000,400.000000,325.000000,450.000000,2.000000,"disconnect"};
+link0[] = {0,8};
+link1[] = {1,0};
+link2[] = {1,7};
+link3[] = {2,3};
+link4[] = {2,11};
+link5[] = {3,4};
+link6[] = {4,10};
+link7[] = {7,6};
+link8[] = {8,9};
+link9[] = {8,11};
+link10[] = {9,2};
+link11[] = {10,2};
+link12[] = {11,5};
+globals[] = {25.000000,1,0,0,0,640,480,1,205,6316128,1,18.169765,606.057312,793.348328,80.234657,784,951,1};
+window[] = {2,-1,-1,-32000,-32000,989,50,1235,50,3,802};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "nomad";
+  class States
+  {
+    /*%FSM<STATE "start">*/
+    class start
+    {
+      name = "start";
+      init = /*%FSM<STATEINIT""">*/"private [""_variables"",""_onspawn"",""_deaths"",""_maxLives""];" \n
+       "" \n
+       "_variables = _this select 0;" \n
+       "_onspawn = _this select 1;" \n
+       "_disconnect = false;" \n
+       "updatePlayerStateNow = false;" \n
+       "nomadUpdated = false;" \n
+       "" \n
+       "if (count _variables != (count _onspawn) - 1) then {hint format [""ERROR: Nomad has been parsed invalid number of parameters (%1 : %2)"",count _variables, (count _onspawn) - 1];};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "SP_or_isServer">*/
+        class SP_or_isServer
+        {
+          priority = 1.000000;
+          to="exit";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"not ismultiplayer || isdedicated"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "wait">*/
+        class wait
+        {
+          priority = 0.000000;
+          to="player_init";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"not isnull player and getplayeruid player != """""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "wait">*/
+    class wait
+    {
+      name = "wait";
+      init = /*%FSM<STATEINIT""">*/"_wait = time + nomadTime;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "disconnect">*/
+        class disconnect
+        {
+          priority = 2.000000;
+          to="disconnect";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_disconnect"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "time___wait">*/
+        class time___wait
+        {
+          priority = 0.000000;
+          to="update";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(time > _wait and (alive player)) OR (updatePlayerStateNow and (alive player))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "update">*/
+    class update
+    {
+      name = "update";
+      init = /*%FSM<STATEINIT""">*/"private [""_data"",""_ndata""];" \n
+       "_data = missionnamespace getvariable _string;" \n
+       "_ndata = +_data;" \n
+       "" \n
+       "_dayspassed = (time / 86400);" \n
+       "if(nomadReinforcements == 999) then {_dayspassed = 999;};" \n
+       "_maxLives = _dayspassed * (nomadRespawns / nomadReinforcements);" \n
+       "" \n
+       "_deaths = _ndata select 0;" \n
+       "if (_deaths >= _maxLives && nomadRespawns != 999) then {_disconnect = true;};" \n
+       "" \n
+       "_livesAccumulated = _maxLives - _deaths;" \n
+       "_hrsPerLife = (nomadReinforcements / nomadRespawns) * 24;" \n
+       "	" \n
+       "private [""_i""];" \n
+       "for ""_i"" from 1 to ((count _variables) - 1) do {" \n
+       "	if (count _data > _i) then {" \n
+       "		private [""_new"",""_old""];" \n
+       "		_old = _ndata select _i;" \n
+       "		if (not isnil ""_old"") then {" \n
+       "			_new = _old call (_variables select (_i - 1));" \n
+       "			if (not isnil ""_new"") then {" \n
+       "				if (format [""%1"",_new] != format [""%1"",_old]) then {" \n
+       "					_ndata set [_i, _new];" \n
+       "				};" \n
+       "			};" \n
+       "		};" \n
+       "	} else {" \n
+       "		_ndata set [_i,objnull call (_variables select (_i - 1))];" \n
+       "	};" \n
+       "};" \n
+       "" \n
+       "if (str _data != str _ndata) then {" \n
+       "	missionnamespace setvariable [_string,_ndata];" \n
+       "	publicvariable _string;" \n
+       "};" \n
+       "" \n
+       "nomadUpdated = true;" \n
+       "updatePlayerStateNow = false;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="wait";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "disconnect">*/
+    class disconnect
+    {
+      name = "disconnect";
+      init = /*%FSM<STATEINIT""">*/"private [""_trigger""];" \n
+       "" \n
+       "cutText [format[""\n\nNext life in %1 hrs"", [-_livesAccumulated * _hrsPerLife, 2] call BIS_fnc_cutDecimals], ""PLAIN DOWN""];" \n
+       "" \n
+       "_trigger = createtrigger [""emptydetector"", [0,0]];" \n
+       "_trigger settriggertype ""end6"";" \n
+       "_trigger settriggerstatements [""true"","""",""""];" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "exit">*/
+    class exit
+    {
+      name = "exit";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "player_init">*/
+    class player_init
+    {
+      name = "player_init";
+      init = /*%FSM<STATEINIT""">*/"_string = format [""RMM_nomad_%1"",getplayeruid player];" \n
+       "" \n
+       "player addeventhandler [""killed"",compile format [""" \n
+       "	if (not isnil '%1') then {" \n
+       "		missionnamespace setvariable ['%1',[((missionnamespace getvariable '%1') select 0) + 1]];" \n
+       "		updatePlayerStateNow = true;" \n
+       "	};" \n
+       """,_string]];" \n
+       "" \n
+       "if (not isnil _string) then {" \n
+       "	private [""_data""];" \n
+       "	_data = missionnamespace getvariable _string;" \n
+       "" \n
+       "	private [""_i"",""_count"",""_tmp""];" \n
+       "	_count = count _data;" \n
+       "	for ""_i"" from 0 to (_count - 1) do {" \n
+       "		(_data select _i) call (_onspawn select _i);" \n
+       "	};" \n
+       "} else {" \n
+       "	missionnamespace setvariable [_string,[0]];" \n
+       "	publicvariable _string;" \n
+       "};"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "disconnect">*/
+        class disconnect
+        {
+          priority = 2.000000;
+          to="disconnect";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"_disconnect"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "_">*/
+        class _
+        {
+          priority = 0.000000;
+          to="wait";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="start";
+  finalStates[] =
+  {
+    "disconnect",
+    "exit",
+  };
+};
+/*%FSM</COMPILE>*/

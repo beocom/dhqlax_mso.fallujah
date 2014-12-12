@@ -1,0 +1,7 @@
+//Language,English,German
+STR_PXS_HINT,Click on the map to align satellite,Click on the map to align NAVSTAR-67 NORAD-ID 38833
+STR_PXS_ACTION,Sat-View,Sat-View
+STR_PXS_BAG,SatCom terminal(pack),SatCom terminal(pack)
+STR_PXS_STATUS_1,SatCom system is connected,SatCom system is connected
+STR_PXS_STATUS_2,SatCom system is disconnected,SatCom system is disconnected
+STR_PXS_OPERATOR,Operator (SatCom),Operator (SatCom)

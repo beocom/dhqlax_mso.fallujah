@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="PXS_SATCOM_ARMA2">
+	<Package name="PXS">
+		<Container name="SAMPLE_STRINGS">
+			<Key ID="STR_PXS_HINT">
+				<English>For insert satellite coordinates, click on the map.</English>
+				<Czech>Výchozí souřadnice pro satelitní pohled zadáte kliknutím na mapu.</Czech>
+			</Key>
+			<Key ID="STR_PXS_ACTION">
+				<English>Start SatView</English>
+				<Czech>Spustit SatView</Czech>
+			</Key>
+			<Key ID="STR_PXS_BAG">
+				<English>SatCom terminal(pack)</English>
+				<Czech>SatCom terminál(batoh)</Czech>
+			</Key>
+			<Key ID="STR_PXS_STATUS_1">
+				<English>SatCom system is connected.</English>
+				<Czech>SatCom systém je připojen.</Czech>
+			</Key>
+			<Key ID="STR_PXS_STATUS_2">
+				<English>SatCom system is disconnected.</English>
+				<Czech>SatCom systém je odpojen.</Czech>
+			</Key>
+			<Key ID="STR_PXS_OPERATOR">
+				<English>Operator (SatCom)</English>
+				<Czech>Operátor (SatCom)</Czech>
+			</Key>
+		</Container>
+	</Package>
+</Project>

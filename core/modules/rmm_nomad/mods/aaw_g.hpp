@@ -1,0 +1,1 @@
+{player getVariable "NORRN_AAWinfAppearance";},

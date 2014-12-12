@@ -1,0 +1,212 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, AI_Driver_2_Gunner">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"START",0,250,628.422241,-1175.282471,718.421997,-1125.282471,0.000000,"START"};
+item1[] = {"no_gunner",4,218,628.544617,-737.004761,718.544800,-687.004700,0.000000,"no" \n "gunner"};
+item2[] = {"Is_server",4,218,627.678528,-1054.853760,717.678528,-1004.853821,0.000000,"Is server"};
+item3[] = {"not_server",4,218,1046.833740,-1176.780151,1136.833618,-1126.780396,0.000000,"not server"};
+item4[] = {"time_start",2,250,628.504822,-903.364258,718.505005,-853.364380,0.000000,"time start"};
+item5[] = {"end1",1,250,1047.981934,-1062.517212,1137.981812,-1012.517212,0.000000,"end1"};
+item6[] = {"clean",2,250,1046.670532,-738.154358,1136.670654,-688.154358,0.000000,"clean"};
+item7[] = {"done",4,218,1048.781494,-908.877319,1138.781494,-858.877319,0.000000,"done"};
+item8[] = {"have_gunner",4,4314,825.122314,-913.939392,915.122314,-863.939392,0.000000,"have" \n "gunner"};
+item9[] = {"dead",4,218,1219.870117,-922.383301,1309.870117,-872.383301,0.000000,"dead"};
+item10[] = {"loop",4,218,1048.176025,-593.258484,1138.176025,-543.258484,0.000000,"loop"};
+link0[] = {0,2};
+link1[] = {0,3};
+link2[] = {1,6};
+link3[] = {2,4};
+link4[] = {3,5};
+link5[] = {4,1};
+link6[] = {4,8};
+link7[] = {6,7};
+link8[] = {6,9};
+link9[] = {6,10};
+link10[] = {7,5};
+link11[] = {8,5};
+link12[] = {9,5};
+link13[] = {10,6};
+globals[] = {0.000000,0,0,0,0,640,480,2,216,6316128,1,228.108597,1432.222900,-448.595032,-1339.838989,966,715,1};
+window[] = {0,-1,-1,-1,-1,879,24,1760,24,1,985};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "AI_Driver_2_Gunner";
+  class States
+  {
+    /*%FSM<STATE "START">*/
+    class START
+    {
+      name = "START";
+      init = /*%FSM<STATEINIT""">*/"// Script by Zonekiller  -- http://zonekiller.ath.cx --    -- zonekiller@live.com.au --" \n
+       "" \n
+       "" \n
+       "_obj = _this select 0;" \n
+       "" \n
+       "_veh = vehicle _obj;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "not_server">*/
+        class not_server
+        {
+          priority = 0.000000;
+          to="end1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(isServer)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Is_server">*/
+        class Is_server
+        {
+          priority = 0.000000;
+          to="time_start";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(isServer)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "time_start">*/
+    class time_start
+    {
+      name = "time_start";
+      init = /*%FSM<STATEINIT""">*/"_obj = _this select 0;" \n
+       "" \n
+       "_veh = vehicle _obj;" \n
+       "" \n
+       "_targets = [];" \n
+       "_i = 0;" \n
+       "" \n
+       "_target = objnull;" \n
+       "" \n
+       "_target = (_obj findNearestEnemy _obj);" \n
+       "" \n
+       "_timeout = time;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "have_gunner">*/
+        class have_gunner
+        {
+          priority = 0.000000;
+          to="end1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_veh emptyPositions ""Gunner"" == 0) or (vehicle _obj isKindOf ""AIR"") or !(alive _veh) or !(alive _obj) or (isplayer _obj))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"if !(isNull (_veh turretUnit [0])) then {(Gunner _veh) suppressFor 10}else{_obj suppressFor 10}; "/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "no_gunner">*/
+        class no_gunner
+        {
+          priority = 0.000000;
+          to="clean";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_veh emptyPositions ""Gunner"" == 1) && (alive _veh) && !(vehicle _obj isKindOf ""AIR"") && (alive _obj) && !(isplayer _obj))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"(driver _veh) action [""moveToGunner"", _veh];" \n
+           "" \n
+           "if !(isnull _target) then {(Gunner _veh) doTarget _target;(Gunner _veh) doFire _target};" \n
+           "" \n
+           "" \n
+           "{if ((_x select 3) > 10000) then {_targets set [count _targets, (_x select 4)]}} foreach ((gunner _veh) nearTargets 200);" \n
+           "" \n
+           "//hint str(_targets);" \n
+           "" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "end1">*/
+    class end1
+    {
+      name = "end1";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "clean">*/
+    class clean
+    {
+      name = "clean";
+      init = /*%FSM<STATEINIT""">*/"_target = _targets select _i;" \n
+       "" \n
+       "if !(isnil ""_target"") then {(gunner _veh) doTarget _target};" \n
+       "" \n
+       "_timeout = time;" \n
+       "" \n
+       "" \n
+       "" \n
+       "if ((isnil ""_target"") && (count _targets > 0)) then {" \n
+       "" \n
+       "_targets = [];" \n
+       "" \n
+       "{if (((_x select 3) > 10000) && !(isnil ""(_x select 3)"")) then {_targets set [count _targets, (_x select 4)]}} foreach ((gunner _veh) nearTargets 200);" \n
+       "" \n
+       "_i = 0;" \n
+       "}; " \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "dead">*/
+        class dead
+        {
+          priority = 0.000000;
+          to="end1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((!(alive _veh) or !(alive (gunner _veh))) &&  (time > (_timeout + 5)))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "loop">*/
+        class loop
+        {
+          priority = 0.000000;
+          to="clean";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(((isnil ""_target"") or (time > (_timeout + 10))) && (count _targets > 0))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"" \n
+           "_i = _i + 1;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "done">*/
+        class done
+        {
+          priority = 0.000000;
+          to="end1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((alive _veh) && (alive (gunner _veh)) &&  (time > (_timeout + 15)))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"(gunner _veh) action [""moveToDriver"", _veh];" \n
+           "" \n
+           "" \n
+           "//((alive _veh) && (alive (gunner _veh)) && (count _targets <= 0) &&  (time > (_timeout + 5)))"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="START";
+  finalStates[] =
+  {
+    "end1",
+  };
+};
+/*%FSM</COMPILE>*/

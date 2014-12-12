@@ -1,0 +1,22 @@
+#include <description-MSO.ext>
+
+//http://community.bistudio.com/wiki/description.ext#Header_Class
+class header {
+	gametype = COOP;
+	minplayers = 1;
+	maxplayers = 32;
+	playerCountMultipleOf = 1;  //Coop type missions use 1, Team type missions use 2
+};
+
+//http://community.bistudio.com/wiki/description.ext#OnLoad...
+loadScreen =  "core\msoimg.paa";
+onLoadIntro = "An MSO Team Development";
+onLoadMission = "An MSO Team Development";
+onLoadIntroTime = true;
+onLoadMissionTime = true;
+
+aiKills = 0;
+briefing = 1;
+debriefing = 1;
+disabledAI = 1;
+

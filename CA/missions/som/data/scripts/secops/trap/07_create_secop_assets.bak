@@ -1,0 +1,281 @@
+/*
+	File: create_secop_assets.sqf
+	Author: Joris-Jan van 't Land
+
+	Description:
+	Processing the creation of dynamic content for the TRAP SecOp.
+	If specific parameters were passed to this SecOp, element 1 will be the crashed aircraft.
+
+	Parameter(s):
+	_this select 0: SecOp ID (Number)
+	_this select 1: SecOp scope (Object)
+	_this select 2: SOM main scope (Object)
+*/
+
+private ["_id", "_scope", "_mainScope", "_targetPos", "_realPos"];
+_id = _this select 0;
+_scope = _this select 1;
+_mainScope = _this select 2;
+
+_targetPos = _scope getVariable "targetPos";
+
+private ["_leader"];
+_leader = _mainScope getVariable "leader";
+
+private ["_side", "_enemySide"];
+_side = _mainScope getVariable "side";
+_enemySide = _side call BIS_SOM_returnEnemySideFunc;
+
+//Check if the SecOp was given a specific aircraft.
+private ["_params", "_airc"];
+_params = _scope getVariable "params";
+if ((count _params) == 2) then
+{
+	_airc = _params select 1;
+	_realPos = position _airc;
+}
+else
+{
+	//Actual crash site is somewhere inside the bigger zone.
+	_realPos = [_targetPos, 0, 200, 15, 0, 30 * (pi / 180), 0] call BIS_fnc_findSafePos;
+	_realPos = [_realPos select 0, _realPos select 1, 5];
+
+	//Create crashed aircraft.
+	private ["_pool", "_type", "_s"];
+	_pool = [];
+/*
+        switch(_side) do {
+                case east: {
+                        _s = str _side;
+                        _sidex = 0;
+                };
+                case west: {
+                        _s = str _side;
+                        _sidex = 1;
+                };
+                case resistance: {
+                        _s ="Guerrila";
+                        _sidex = 2;
+                };
+                case civilian: {
+                        _s = "Civilian";
+                        _sidex = 3;
+                };
+        };
+        
+        _facs = [];
+        {
+                if (getNumber(configFile >> "CfgFactionClasses" >> _x >> "side") == _sidex) then {
+                        _facs set [count _facs, _x];
+                };
+        } forEach ([] call BIS_fnc_getFactions);
+
+                // Confirm there are units for this faction in this type
+                {
+                        for "_y" from 1 to count(configFile >> "CfgVehicles" >> _s >> _x >> "Air") - 1 do {
+                                if (!(_x in _facx)) then {
+                                        _facx set [count _facx, _x];
+                                };
+                        };
+                } forEach _facs;
+*/
+                
+                _vehs = [];
+                for "_i" from 1 to count(configFile >> "CfgVehicles") - 1 do {
+                        _v = (configFile >> "CfgVehicles") select _i;
+                        if(getText(_v >> "vehicleClass") == "Air" && getNumber(_v >> "side") == 1) then {
+                                _vehs set [count _vehs, _v];
+                        };
+                };
+                _vehs;
+[] call bis_fnc_configViewer;
+                _type = _pool call BIS_fnc_selectRandom;
+
+	_airc = createVehicle [_type, _realPos, [], 0, "FLY"];
+	[_airc, 1, _id, _mainScope] call BIS_SOM_dynAddFunc;
+	_airc setPos _realPos;
+	_airc setDamage (0.2 + (random 0.8));
+	_airc setVelocity [0 + (10 - (random 20)), 0 + (10 - (random 20)), -5];
+	_airc setDir (random 360);
+	_airc setVectorUp [0 + (1 - (random 2)), 0 + (1 - (random 2)), 0 + (1 - (random 2))];
+
+	//Make the aircraft rogue, so it's legal to destroy it.
+	_airc addScore -10000;
+
+	//Create possible survivors.
+	private ["_entry", "_cargoCnt"];
+	_entry = BIS_SOM_CfgVehicles >> _type;
+	_cargoCnt = getNumber (_entry >> "transportSoldier");
+	_cargoCnt = 4 min (random _cargoCnt);
+
+	//Create the entire survivor group.
+	private ["_types", "_grpS"];
+	_types = [_side, _cargoCnt] call BIS_fnc_returnGroupComposition;
+	_grpS = [[_realPos select 0, _realPos select 1, 0], _side, _types] call BIS_fnc_spawnGroup;
+	[[_grpS] + (units _grpS), 1, _id, _mainScope] call BIS_SOM_addDynFunc;
+
+	private ["_crew"];
+	_crew = [_airc, _grpS] call BIS_fnc_spawnCrew;
+
+	_airc engineOn false;
+
+	//The game gives these UAV crew to fly it, but it should not visibly have one.
+	if (_type in ["MQ9PredatorB", "MQ9PredatorB_US_EP1", "Pchela1TBLU", "Pchela1T", "AH6X_EP1"]) then
+	{
+		{
+			deleteVehicle _x;
+		} forEach _crew;
+		_crew = [];
+	}
+	else
+	{
+		[_crew, 1, _id, _mainScope] call BIS_SOM_addDynFunc;
+	};
+
+	//Randomly kill or wound part of the squad.
+	{
+		if ((random 1) > 0.3) then
+		{
+			//Kill.
+			_x setDamage 1;
+
+			//Move some dead crew inside the craft.
+			if !(_x in _crew) then
+			{
+				if ((random 1) > 0.5) then
+				{
+					_x moveInCargo _airc;
+				};
+			};
+		}
+		else
+		{
+			//Wound?
+			_x setDamage (random 0.6);
+
+			//Alive crew should not stay inside.
+			if (_x in _crew) then
+			{
+				_x action ["EJECT", _airc];
+			};
+		};
+	} forEach (units _grpS);
+
+	_grpS setBehaviour "STEALTH";
+
+	//Create enemy scouting party.
+	//TODO: Use point reflection to find good starting position?
+	//Temporarily used the main group's exact opposite position relative to the crashsite.
+	private ["_grpP", "_oppositePos"];
+	_oppositePos = [2 * (_targetPos select 0) - ((position _leader) select 0), 2 * (_targetPos select 1) - ((position _leader) select 1),0];
+	_grpP = [_oppositePos, _enemySide, 2 + (random 4)] call BIS_fnc_spawnGroup;
+	[[_grpP] + (units _grpP), 1, _id, _mainScope] call BIS_SOM_addDynFunc;
+	
+	//Assign a patrol route.
+	private ["_wp"];
+	_wp = _grpP addWaypoint [_targetPos, 100];
+	_wp setWaypointType "MOVE";
+	_wp setWaypointFormation "STAG COLUMN";
+	_wp setWaypointCompletionRadius 20;
+	//[_grpP, _targetPos, 100] call BIS_fnc_taskPatrol;
+};
+
+//Register the aircraft.
+_scope setVariable ["target", _airc];
+
+//Simple good ending trigger.
+private ["_endTrigger1"];
+_endTrigger1 = createTrigger ["EmptyDetector", _realPos];
+[_endTrigger1, 1, _id, _mainScope] call BIS_SOM_addDynFunc;
+_endTrigger1 setTriggerArea [100, 100, 0, false];
+_endTrigger1 setVariable ["secOpScope", _this select 1];
+
+private ["_triggerType"];
+switch (_side) do
+{
+	case west:
+	{
+		_triggerType = "WEST SEIZED";
+	};
+
+	case east:
+	{
+		_triggerType = "EAST SEIZED";
+	};
+
+	default {};
+};
+
+_endTrigger1 setTriggerActivation [_triggerType, "PRESENT", true];
+_endTrigger1 setTriggerTimeout [10, 20, 30, false];
+
+private ["_cond", "_onAct"];
+_cond =
+"call " +
+"{" +
+"	private [""_scope"", ""_tgt"", ""_leader""];" +
+"	_scope = thisTrigger getVariable ""secOpScope"";" +
+"	_tgt = _scope getVariable ""target"";" +
+"	_leader = (_scope getVariable ""mainScope"") getVariable ""leader"";" +
+"	this && (_leader in thisList) && !(alive _tgt) && (_scope getVariable ""targetPosReached"")" +
+"}";
+
+_onAct =
+"call " +
+"{" +
+"	private [""_scope""];" +
+"	_scope = thisTrigger getVariable ""secOpScope"";" +
+"	_scope setVariable [""ending"", 0]" +
+"}";
+
+_endTrigger1 setTriggerStatements [_cond, _onAct, ""];
+
+//Trigger checking if the main squad was near the aircraft.
+private ["_helperTrigger1"];
+_helperTrigger1 = createTrigger ["EmptyDetector", _realPos];
+[_helperTrigger1, 1, _id, _mainScope] call BIS_SOM_addDynFunc;
+_helperTrigger1 setTriggerArea [20, 20, 0, false];
+_helperTrigger1 setVariable ["secOpScope", _this select 1];
+_helperTrigger1 triggerAttachVehicle [_leader];
+_helperTrigger1 setTriggerActivation ["MEMBER", "PRESENT", true];
+
+_onAct =
+"call " +
+"{" +
+"	private [""_scope""];" +
+"	_scope = thisTrigger getVariable ""secOpScope"";" +
+"	_scope setVariable [""targetPosReached"", true]" +
+"}";
+
+_helperTrigger1 setTriggerStatements ["this", _onAct, ""];
+
+_scope setVariable ["targetPosReached", false];
+
+//Have the triggers be positioned where the aircraft is constantly.
+private ["_handle"];
+_handle = [_airc, [_endTrigger1, _helperTrigger1]] execVM (BIS_SOM_stdPath + "scripts\secops\trap\update_trigger_positions.sqf");
+
+//Main squad task for the leader.
+private ["_title", "_desc", "_descShort"];
+_title = _scope getVariable "title";
+_desc = localize "STR_SOM_TRAP_TASK_DESC";
+_descShort = localize "STR_SOM_TRAP_TASK_SHORT";
+
+private ["_code"];
+_code =
+{
+	private ["_task"];
+	_task = _x createSimpleTask [_this select 0];
+	_task setSimpleTaskDescription [_this select 1, _this select 2, _this select 2];
+	_task setSimpleTaskDestination (_this select 3);
+	
+	(_this select 4) setVariable ["task", _task];
+};
+
+[[_leader], [_title, _desc, _descShort, _targetPos, _scope], _code] call BIS_SOM_sendCodeFunc;
+
+
+//Telling the system to go to the next phase.
+[_id, _mainScope] call BIS_SOM_nextSecOpPhaseFunc;
+
+true

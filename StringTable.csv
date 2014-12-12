@@ -1,0 +1,18 @@
+﻿Language,English,German
+
+#include <core\modules\modules.hpp>
+#include <ambience\modules\modules.hpp>
+#include <support\modules\modules.hpp>
+#include <enemy\modules\modules.hpp>
+
+#ifdef RMM_RECRUITMENT
+#include <support\stringtable.csv>
+#endif
+
+#ifdef ROY_PATROLOPS
+#include <enemy\modules\roy_patrolops\stringtable.csv>
+#endif
+
+#ifdef PXS_SATCOM_OA
+#include <support\modules\pxs_satcom_oa\stringtable.csv>
+#endif

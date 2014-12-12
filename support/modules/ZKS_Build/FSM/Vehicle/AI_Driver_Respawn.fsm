@@ -1,0 +1,179 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, AI_Driver_Respawn">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"not_server",4,218,-625.180054,-723.351868,-535.180054,-673.352051,0.000000,"not server"};
+item1[] = {"end1",1,250,-624.922119,-407.304596,-534.922302,-357.304596,0.000000,"end1"};
+item2[] = {"car_clean",0,250,-363.178375,-722.909180,-273.178375,-672.909180,0.000000,"car" \n "clean"};
+item3[] = {"respawn_true",4,218,-209.626801,-719.063965,-119.626846,-669.063965,0.000000,"respawn" \n "true"};
+item4[] = {"driverlook_detac",2,250,-211.809601,-581.502258,-121.809570,-531.502380,0.000000,"driverlook" \n "detach"};
+item5[] = {"marker_true",4,218,-142.151764,-406.937439,-52.151752,-356.937561,0.000000,"marker" \n "true"};
+item6[] = {"marker_false",4,218,-286.831055,-406.827393,-196.831070,-356.827515,1.000000,"marker" \n "false"};
+item7[] = {"respawn_creater",1,4346,0.877689,-403.828064,90.877716,-353.828064,0.000000,"respawn" \n "creater"};
+link0[] = {0,1};
+link1[] = {2,0};
+link2[] = {2,3};
+link3[] = {3,4};
+link4[] = {4,5};
+link5[] = {4,6};
+link6[] = {5,7};
+link7[] = {6,1};
+globals[] = {0.000000,0,0,0,0,640,480,2,463,6316128,1,-1184.518921,880.701172,583.408081,-1282.166626,735,841,1};
+window[] = {0,-1,-1,-1,-1,1149,168,1768,168,1,754};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "AI_Driver_Respawn";
+  class States
+  {
+    /*%FSM<STATE "end1">*/
+    class end1
+    {
+      name = "end1";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "car_clean">*/
+    class car_clean
+    {
+      name = "car_clean";
+      init = /*%FSM<STATEINIT""">*/"// Script by Zonekiller  -- http://zonekiller.ath.cx --    -- zonekiller@live.com.au --" \n
+       "" \n
+       "_timeout = time;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "respawn_true">*/
+        class respawn_true
+        {
+          priority = 0.000000;
+          to="driverlook_detac";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(isServer)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_CommonSettings = _this select 0;" \n
+           "_RespawnSettings = _this select 1;" \n
+           "_car =  _this select 2;" \n
+           "_assigned = [];" \n
+           "_veharray = [];" \n
+           "_imgunner = 0;" \n
+           "_nodrivertime = 60;" \n
+           "" \n
+           "" \n
+           "_AIcrew = _RespawnSettings select 0;" \n
+           "_AIcrew1 = _RespawnSettings select 1;" \n
+           "_AIcrew2 = _RespawnSettings select 2;" \n
+           "_pos = _RespawnSettings select 3;" \n
+           "_dir = _RespawnSettings select 4;" \n
+           "_typeveh = _RespawnSettings select 5;" \n
+           "_hgt = _RespawnSettings select 6;" \n
+           "_varname = _RespawnSettings select 7;" \n
+           "_vel = _RespawnSettings select 8;" \n
+           "_grp = _RespawnSettings select 9;" \n
+           "_side = _RespawnSettings select 10;" \n
+           "_marker = _RespawnSettings select 11;" \n
+           "_markercolor = _RespawnSettings select 12;" \n
+           "_airport = _RespawnSettings select 13;" \n
+           "" \n
+           "" \n
+           "" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "not_server">*/
+        class not_server
+        {
+          priority = 0.000000;
+          to="end1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(isServer)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "driverlook_detac">*/
+    class driverlook_detac
+    {
+      name = "driverlook_detac";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "marker_false">*/
+        class marker_false
+        {
+          priority = 1.000000;
+          to="end1";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((getMarkerColor _marker) != _markercolor)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"deleteVehicle _car;" \n
+           "_car removeAllEventHandlers ""killed"";" \n
+           "_car removeAllEventHandlers ""init"";" \n
+           "_car removeAllEventHandlers ""GetOut"";" \n
+           "_car removeAllEventHandlers ""IncomingMissile"";" \n
+           "_car removeAllEventHandlers ""LandedTouchDown"";" \n
+           "_car removeAllEventHandlers ""Engine"";"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "marker_true">*/
+        class marker_true
+        {
+          priority = 0.000000;
+          to="respawn_creater";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((getMarkerColor _marker) == _markercolor)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"" \n
+           "" \n
+           "deleteVehicle _car;" \n
+           "_sld = objnull;" \n
+           "if ((_hgt > 10) && (vehicle _car isKindOf ""AIR"")) then {_car = createVehicle [_typeveh, _pos, [],0,""fly""]} else {_car = _typeveh createVehicle _pos;_car setPos [(getPos _car select 0),(getPos _car select 1),(getPos _car select 2) + 0.5];};" \n
+           "_car setdir _dir;" \n
+           "_car setdamage 0;" \n
+           "_car setFuel 1;" \n
+           "_car setVehicleAmmo 1;" \n
+           "_car setpos _pos;" \n
+           "_car setVehicleVarName _varname;" \n
+           "_speed = 0;" \n
+           "_car setVelocity [(_vel select 0)+(sin _dir*_speed),(_vel select 1)+(cos _dir*_speed),(_vel select 2)];" \n
+           "" \n
+           "_ii = 0;" \n
+           "{_sld = _grp createUnit [_x,_pos,[],0,""NONE""];" \n
+           "if (isnil{(_AIcrew2 select _ii)}) then {_sld action [""getin"" + (_AIcrew1 select _ii),_car]}else{_sld action [""Getin"" + (_AIcrew1 select _ii),_car,(_AIcrew2 select _ii)]};" \n
+           "_ii = _ii + 1;" \n
+           "} foreach _AIcrew;" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "respawn_creater">*/
+    class respawn_creater
+    {
+      name = "respawn_creater";
+      init = /*%FSM<STATEINIT""">*/"[_car] execFSM ""FSM\Vehicle\AI_Driver_Type.fsm"";" \n
+       "[_CommonSettings,_RespawnSettings,_assigned,_veharray,_car,_imgunner,_nodrivertime] execFSM ""FSM\Vehicle\AI_Driver_Search.fsm"";" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="car_clean";
+  finalStates[] =
+  {
+    "end1",
+    "respawn_creater",
+  };
+};
+/*%FSM</COMPILE>*/

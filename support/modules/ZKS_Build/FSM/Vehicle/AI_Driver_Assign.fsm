@@ -1,0 +1,580 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, AI_Driver_Assign">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"start",0,250,-147.304993,275.271271,-57.305023,325.271301,0.000000,"start"};
+item1[] = {"get_driver",2,250,192.449707,551.960144,282.449768,601.960266,0.000000,"get" \n "driver"};
+item2[] = {"done",4,218,194.003845,1588.338867,284.003845,1638.339111,0.000000,"done"};
+item3[] = {"get_gunner",2,250,192.823486,862.127930,282.823425,908.126343,0.000000,"get" \n "gunner"};
+item4[] = {"end",1,250,-145.729156,1910.682739,-55.729034,1960.682739,0.000000,"end"};
+item5[] = {"not_server",4,218,-144.752167,444.274261,-54.752289,494.274048,0.000000,"not server"};
+item6[] = {"cargo_loop",4,218,19.218262,1480.571045,109.218262,1530.571045,0.000000,"cargo" \n "loop"};
+item7[] = {"Gunner",4,218,193.724121,709.787354,283.724121,759.787354,0.000000,"Gunner"};
+item8[] = {"Cargo",4,218,192.758789,1339.301025,282.758850,1389.301025,0.000000,"Cargo"};
+item9[] = {"get_cargo",2,250,194.600830,1481.942627,284.600769,1531.942627,0.000000,"get" \n "cargo"};
+item10[] = {"ddf",4,218,192.937088,275.482391,282.937073,325.482391,0.000000,"ddf"};
+item11[] = {"driver_loop",4,218,23.577698,551.413025,113.577698,601.413147,0.000000,"driver" \n "loop"};
+item12[] = {"gunner_loop",4,218,14.540588,860.202271,104.540527,910.202271,0.000000,"gunner" \n "loop"};
+item13[] = {"Commander",4,218,192.167236,1009.201416,282.167236,1059.201416,0.000000,"Commander"};
+item14[] = {"get_Commander",2,250,191.854858,1161.547119,281.854858,1207.545410,0.000000,"get" \n "Commander"};
+item15[] = {"commander_loop",4,218,15.446411,1159.479248,105.446350,1209.479248,0.000000,"commander" \n "loop"};
+item16[] = {"turret_check",4,218,193.337234,1911.064941,283.336853,1961.065674,0.000000,"turret" \n "check"};
+item17[] = {"end_look",2,250,194.027466,1739.696045,284.027649,1789.696533,0.000000,"end" \n "look"};
+item18[] = {"dead",4,218,7.927994,1738.682373,97.927994,1788.682373,0.000000,"dead"};
+item19[] = {"full",4,218,100.001831,1833.715454,190.001831,1883.715454,0.000000,"full"};
+link0[] = {0,5};
+link1[] = {0,10};
+link2[] = {1,7};
+link3[] = {1,11};
+link4[] = {2,17};
+link5[] = {3,12};
+link6[] = {3,13};
+link7[] = {5,4};
+link8[] = {6,9};
+link9[] = {7,3};
+link10[] = {8,9};
+link11[] = {9,2};
+link12[] = {9,6};
+link13[] = {10,1};
+link14[] = {11,1};
+link15[] = {12,3};
+link16[] = {13,14};
+link17[] = {14,8};
+link18[] = {14,15};
+link19[] = {15,14};
+link20[] = {16,4};
+link21[] = {17,16};
+link22[] = {17,18};
+link23[] = {17,19};
+link24[] = {18,4};
+link25[] = {19,4};
+globals[] = {0.000000,0,0,0,0,640,480,2,495,6316128,1,-932.833923,1454.372925,2443.621094,-53.444931,598,841,1};
+window[] = {0,-1,-1,-1,-1,1149,168,1954,168,1,617};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "AI_Driver_Assign";
+  class States
+  {
+    /*%FSM<STATE "start">*/
+    class start
+    {
+      name = "start";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "ddf">*/
+        class ddf
+        {
+          priority = 0.000000;
+          to="get_driver";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"isServer"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"" \n
+           "_CommonSettings = _this select 0;" \n
+           "_RespawnSettings = _this select 1;" \n
+           "_assigned = _this select 2;" \n
+           "_veharray = _this select 3;" \n
+           "_car =  _this select 4;" \n
+           "_imgunner = _this select 5;" \n
+           "_nodrivertime = _this select 6;" \n
+           "" \n
+           "_g = _CommonSettings select 5;" \n
+           "_d = _CommonSettings select 6;" \n
+           "_c = _CommonSettings select 7;" \n
+           "_com = _CommonSettings select 8;" \n
+           "_seats = _CommonSettings select 9;" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           "_dtme = .1;" \n
+           "_cfg = configFile >> ""CfgVehicles"" >> typeof _car >> ""turrets"";" \n
+           "_tc = count _cfg;" \n
+           "" \n
+           "_i = 0;" \n
+           "_in = 0;" \n
+           "_id = 0;" \n
+           "_ig = 0;" \n
+           "_ic = 0;" \n
+           "" \n
+           "" \n
+           "{if (((vehicle _car) isKindOf ""StaticWeapon"") && (_x == leader _x)) then {_veharray = _veharray - [_x]}} foreach _veharray;" \n
+           "" \n
+           "_arraytmp = [];" \n
+           "_b = 0;" \n
+           "_num = count _veharray;" \n
+           "" \n
+           "	for ""_b"" from 0 to (_num - 1) do " \n
+           "	{" \n
+           "	//_i = 0;" \n
+           "	_smallest = _car distance  (_veharray select 0);" \n
+           "	_nearest = _veharray select 0;" \n
+           "" \n
+           "" \n
+           "			for ""_i"" from 0 to ((count _veharray) - 1) do" \n
+           "			{" \n
+           "				if ((_car distance  (_veharray select _i)) < _smallest) then" \n
+           "				{" \n
+           "				_nearest = (_veharray select _i);" \n
+           "				_smallest = (_car distance  (_veharray select _i));" \n
+           "				};" \n
+           "			//_i = _i + 1;" \n
+           "			};" \n
+           "" \n
+           "	_arraytmp set [count _arraytmp, _nearest];" \n
+           "	_veharray =_veharray - [_nearest];" \n
+           "" \n
+           "//_i = 0;" \n
+           "//	_b = _b + 1;" \n
+           "	};" \n
+           "" \n
+           "_veharray = [];" \n
+           "_veharray = _arraytmp;" \n
+           "" \n
+           "" \n
+           "_timeout = time;" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "not_server">*/
+        class not_server
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(isServer)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "get_driver">*/
+    class get_driver
+    {
+      name = "get_driver";
+      init = /*%FSM<STATEINIT""">*/"" \n
+       "_cl = 0;" \n
+       "{if !(isNull assignedVehicle _x) then {_veharray set [_cl,-1]};_cl = _cl + 1;} foreach _veharray;" \n
+       "_veharray = _veharray - [-1];" \n
+       "" \n
+       "_num = count _veharray;" \n
+       "" \n
+       "if ((_num > 0) && (_d == 1) && (isNull assignedDriver _car) && ((_car emptypositions ""Driver"") == 1)) then {" \n
+       "" \n
+       "_asvd = objnull;" \n
+       "_asvd = assignedVehicle (_veharray select _id);" \n
+       "" \n
+       "if (isNull _asvd) then {" \n
+       "" \n
+       "(_veharray select _id) addEventHandler [""killed"", {(_this select 0) setpos getPos (_this select 0);unassignVehicle (_this select 0);}];" \n
+       "" \n
+       "(_veharray select _id) setBehaviour ""CARELESS"";" \n
+       "(_veharray select _id) setUnitRank ""COLONEL"";" \n
+       "" \n
+       "(_veharray select _id) assignasdriver _car;" \n
+       "[(_veharray select _id)] orderGetIn true;" \n
+       "_timecalled = time;" \n
+       "" \n
+       "_assigned set [count _assigned, [(_veharray select _id),_timecalled]];" \n
+       "_veharray set [_id, -1];_veharray = _veharray - [-1];" \n
+       "" \n
+       "_id = 1000;" \n
+       "" \n
+       "" \n
+       "}" \n
+       "else" \n
+       "{" \n
+       "_id = _id + 1;" \n
+       "};" \n
+       "" \n
+       "}" \n
+       "else" \n
+       "{" \n
+       "_id = 1000;" \n
+       "};" \n
+       "" \n
+       "_timeout = time;" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "driver_loop">*/
+        class driver_loop
+        {
+          priority = 0.000000;
+          to="get_driver";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"" \n
+           "((_num > _id)" \n
+           " && " \n
+           "((_car emptypositions ""Driver"") == 1)" \n
+           " && " \n
+           "((alive _car) && (canMove _car))" \n
+           " && " \n
+           "((_d == 1) && (isNull assignedDriver _car))" \n
+           " && " \n
+           "(time > (_timeout + _dtme)))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Gunner">*/
+        class Gunner
+        {
+          priority = 0.000000;
+          to="get_gunner";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_id == 1000) or (count _veharray <= 0) or !(alive _car) or !(canMove _car))" \n
+           ""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "get_gunner">*/
+    class get_gunner
+    {
+      name = "get_gunner";
+      init = /*%FSM<STATEINIT""">*/"" \n
+       "_cl = 0;" \n
+       "{if !(isNull assignedVehicle _x) then {_veharray set [_cl,-1]};_cl = _cl + 1;} foreach _veharray;" \n
+       "_veharray = _veharray - [-1];" \n
+       "" \n
+       "_num = count _veharray;" \n
+       "" \n
+       "if ((_num > 0) && (_g == 1) && (isNull assignedGunner _car) && ((_car emptypositions ""Gunner"") == 1)) then {" \n
+       "" \n
+       "_asvg = objnull;" \n
+       "_asvg = assignedVehicle (_veharray select _ig);" \n
+       "" \n
+       "if (isNull _asvg) then {" \n
+       "(_veharray select _ig) assignasgunner _car;" \n
+       "(_veharray select _ig) dofollow (driver _car);" \n
+       "[(_veharray select _ig)] orderGetIn true;" \n
+       "(_veharray select _ig) setBehaviour ""CARELESS"";" \n
+       "(_veharray select _ig) addEventHandler [""killed"", {(_this select 0) setpos getPos (_this select 0);unassignVehicle (_this select 0);}];" \n
+       "" \n
+       "_timecalled = time;" \n
+       "_assigned set [count _assigned, [(_veharray select _ig),_timecalled]];" \n
+       "" \n
+       "_veharray set [_ig, -1];_veharray = _veharray - [-1];" \n
+       "_ig = 1000;" \n
+       "}" \n
+       "else" \n
+       "{" \n
+       "_ig = _ig + 1;" \n
+       "};" \n
+       "" \n
+       "}" \n
+       "else" \n
+       "{" \n
+       "_ig = 1000;" \n
+       "};" \n
+       "" \n
+       "_timeout = time;" \n
+       "" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "Commander">*/
+        class Commander
+        {
+          priority = 0.000000;
+          to="get_Commander";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_ig == 1000) or (count _veharray <= 0) or !(alive _car) or !(canMove _car))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "gunner_loop">*/
+        class gunner_loop
+        {
+          priority = 0.000000;
+          to="get_gunner";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_num > _ig)" \n
+           " && " \n
+           "((_car emptypositions ""Gunner"") == 1)" \n
+           " && " \n
+           "((_g == 1) && (isNull assignedGunner _car))" \n
+           " && " \n
+           "((alive _car) && (canMove _car))" \n
+           " &&" \n
+           "(time > (_timeout + _dtme)))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "end">*/
+    class end
+    {
+      name = "end";
+      init = /*%FSM<STATEINIT""">*/"[_CommonSettings,_RespawnSettings,_assigned,_veharray,_car,_imgunner,_nodrivertime] execFSM ""FSM\Vehicle\AI_Driver_Full.fsm"";"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "get_cargo">*/
+    class get_cargo
+    {
+      name = "get_cargo";
+      init = /*%FSM<STATEINIT""">*/"" \n
+       "_num = count _veharray;" \n
+       "" \n
+       "if ((_num > 0) && (_c == 1) && ((count assignedCargo _car) < _seats)) then {" \n
+       "" \n
+       "_asvc = objnull;" \n
+       "_asvc = assignedVehicle (_veharray select _i);" \n
+       "if (isNull _asvc) then {" \n
+       "" \n
+       "(_veharray select _in) assignascargo _car;" \n
+       "[(_veharray select _in)] orderGetIn true;" \n
+       "(_veharray select _in) addEventHandler [""killed"", {(_this select 0) setpos getPos (_this select 0);unassignVehicle (_this select 0);}];" \n
+       "" \n
+       "(_veharray select _in) setBehaviour ""CARELESS"";" \n
+       "_timecalled = time;" \n
+       "_assigned set [count _assigned, [(_veharray select _in),_timecalled]];" \n
+       "" \n
+       "_in = _in + 1;" \n
+       "" \n
+       "};" \n
+       "_i = _i + 1;" \n
+       "_timeout = time;" \n
+       "};" \n
+       "" \n
+       "" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "cargo_loop">*/
+        class cargo_loop
+        {
+          priority = 0.000000;
+          to="get_cargo";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"" \n
+           "(((count assignedCargo _car) < _seats)" \n
+           " && " \n
+           "(time > (_timeout + .1))" \n
+           " && " \n
+           "(_num > _i )" \n
+           " && " \n
+           "((alive _car) && (canMove _car))" \n
+           " && " \n
+           "(_c == 1))" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           ""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "done">*/
+        class done
+        {
+          priority = 0.000000;
+          to="end_look";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"" \n
+           "" \n
+           "(((_num <= _i)" \n
+           "or " \n
+           "((count assignedCargo _car) >= _seats)" \n
+           "or " \n
+           "(_c == 0)" \n
+           "or" \n
+           "(count _veharray <= 0)" \n
+           "or" \n
+           "!(alive _car)" \n
+           " or " \n
+           "!(canMove _car)))" \n
+           "" \n
+           "" \n
+           "" \n
+           "" \n
+           ""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"//{[(_x select 0)] orderGetIn true} foreach _assigned;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "get_Commander">*/
+    class get_Commander
+    {
+      name = "get_Commander";
+      init = /*%FSM<STATEINIT""">*/"" \n
+       "_cl = 0;" \n
+       "{if !(isNull assignedVehicle _x) then {_veharray set [_cl,-1]};_cl = _cl + 1;} foreach _veharray;" \n
+       "_veharray = _veharray - [-1];" \n
+       "" \n
+       "_num = count _veharray;" \n
+       "" \n
+       "if ((_num > 0) && (_com == 1) && (isNull assignedCommander _car) && ((_car emptypositions ""Commander"") == 1)) then {" \n
+       "" \n
+       "" \n
+       "_asvcom = objnull;" \n
+       "_asvcom = assignedVehicle (_veharray select _ic);" \n
+       "" \n
+       "if (isNull _asvcom) then {" \n
+       "" \n
+       "(_veharray select _ic) assignAsCommander _car;" \n
+       "[(_veharray select _ic)] orderGetIn true;" \n
+       "(_veharray select _ic) setBehaviour ""CARELESS"";" \n
+       "(_veharray select _ic) addEventHandler [""killed"", {(_this select 0) setpos getPos (_this select 0);unassignVehicle (_this select 0);}];" \n
+       "" \n
+       "_timecalled = time;" \n
+       "_assigned set [count _assigned, [(_veharray select _ic),_timecalled]];" \n
+       "" \n
+       "_veharray set [_ic, -1];_veharray = _veharray - [-1];" \n
+       "_ic = 1000;" \n
+       "}" \n
+       "else" \n
+       "{" \n
+       "_ic = _ic + 1;" \n
+       "};" \n
+       "" \n
+       "}" \n
+       "else" \n
+       "{" \n
+       "_ic = 1000;" \n
+       "};" \n
+       "_timeout = time;" \n
+       "" \n
+       "" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "commander_loop">*/
+        class commander_loop
+        {
+          priority = 0.000000;
+          to="get_Commander";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_num > _ic)" \n
+           " && " \n
+           "((_car emptypositions ""Commander"") == 1)" \n
+           " && " \n
+           "((_com == 1) && (isNull assignedCommander _car))" \n
+           " && " \n
+           "((alive _car) && (canMove _car))" \n
+           " &&" \n
+           "(time > (_timeout + _dtme)))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Cargo">*/
+        class Cargo
+        {
+          priority = 0.000000;
+          to="get_cargo";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_ic == 1000) or (count _veharray <= 0) or !(alive _car) or !(canMove _car))" \n
+           "" \n
+           "" \n
+           ""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "end_look">*/
+    class end_look
+    {
+      name = "end_look";
+      init = /*%FSM<STATEINIT""">*/"" \n
+       "_timeout = time;" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "dead">*/
+        class dead
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_tc < 2)" \n
+           "or" \n
+           "!(alive _car)" \n
+           " or " \n
+           "!(canMove _car))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "full">*/
+        class full
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(!(isNull assignedDriver _car) && (!(isNull assignedGunner _car) or ((_car emptypositions ""Gunner"") == 0)) && (_tc >= 2) && !(isNull (_car turretUnit [1])))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "turret_check">*/
+        class turret_check
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"((_tc >= 2)" \n
+           " && " \n
+           "(((_d == 1) or !(isNull assignedDriver _car)))" \n
+           " && " \n
+           "(((_g == 1) or !(isNull assignedDriver _car)) && ((_car emptypositions ""Gunner"") == 0))" \n
+           " &&" \n
+           "(isNull (_car turretUnit [1])))" \n
+           "" \n
+           ""/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"" \n
+           "if !(isplayer driver _car) then {" \n
+           "" \n
+           "if ((isNull (_car turretUnit [1])) && (_tc >= 2)) then " \n
+           "{" \n
+           "(driver _car) action [""moveToTurret"", _car, [1]];" \n
+           "(gunner _car) action [""moveTodriver"", _car];" \n
+           "(driver _car) action [""moveToTurret"", _car, [1]];" \n
+           "};" \n
+           "" \n
+           "};" \n
+           "" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="start";
+  finalStates[] =
+  {
+    "end",
+  };
+};
+/*%FSM</COMPILE>*/

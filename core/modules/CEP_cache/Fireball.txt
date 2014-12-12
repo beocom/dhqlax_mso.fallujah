@@ -1,0 +1,73 @@
+viewBlocked = { 
+        _pos = _this select 0; 
+        _dir = _this select 1; 
+        _lvl = _this select 2; 
+        blocked = 0; 
+        for "_i" from (_dir - 22.5) to (_dir + 22.5) step 22.5 do { 
+                _bullet = createVehicle ["B_9x18_Ball", [0,0,100], [], 0, "NONE"]; 
+                _bullet setPosATL [(_pos select 0)-(sin _i)*2, (_pos select 1)-(sin _i)*2, (_pos select 2)+_lvl]; 
+                _bullet setVelocity [(sin _i)*30, (cos _i)*30, 0]; 
+                _d = 0; 
+                waitUntil { if (getPosATL _bullet select 0 > 0) then { _d = _bullet distance _pos; }; _d >= 10 || isNull _bullet}; 
+                if (_d < 10) then { blocked = blocked + 1; }; 
+        }; 
+        if (blocked <= 1) then { false} else { true}; 
+}; 
+
+// canSee; returns true if a _unit looks at the _obj within a certain _arc (field of view) in degrees
+canSee = {
+	private ["_unit","_obj","_dirTo","_uDir","_vcl","_arc"];
+	_unit  = _this select 0;
+	_obj   = _this select 1;
+	_arc   = _this select 2;
+	
+	_dirTo = getDirTo(_unit,_obj); // vector from _unit to _obj
+	_uDir  = getDir (vehicle _unit); // heading of _unit
+	if (vehicle _unit != _unit) then {
+		// if it's a vehicle and _unit is in a turret we take the heading of that turret
+		_vcl = vehicle _unit;
+		if (_vcl turretUnit [0] == _unit) then {
+			_uDir = _vcl weaponDirection (_vcl weaponsTurret [0] select 0);
+			_uDir = (_uDir select 0) atan2 (_uDir select 1);
+		};
+	};
+	if (abs(_dirTo - _uDir) > 180) then { _uDir = -1*(360 - _uDir); };
+	abs(_dirTo - _uDir) <= _arc
+
+};
+			
+#define canSee(X,Y,Z) ([X,Y,Z] call canSee)
+
+arrCanSee = {
+	private ["_arc","_pos","_arr","_rng","_unit","_canSee"];
+	_arr = _this select 0;
+	_pos = _this select 1;
+	_arc = _this select 2;
+	_rng = _this select 3;
+    
+	_canSee = false;
+	for "_i" from 0 to (count _arr - 1) do {
+		_unit = _arr select _i;
+		if (alive _unit && (canSee(_unit,_pos,_arc) || _unit distance _pos <= _rng)) exitWith { _canSee = true; };
+	};
+	_canSee
+};
+
+#define arrCanSee(W,X,Y,Z) ([W,X,Y,Z] call arrCanSee)
+
+canSeeArr = {	
+    private ["_canSee","_unit","_pos","_arr","_arc"];
+    _pos = _this select 0;
+	_arr = _this select 1;
+	_arc = _this select 2;
+    
+	_canSee = true;
+	for "_i" from 0 to (count _arr - 1) do {
+		_unit = _arr select _i;
+		if !canSee(_pos,_unit,_arc) exitWith { _canSee = false; };
+	};
+	_canSee
+};
+
+#define canSeeArr(X,Y,Z) ([X,Y,Z] call canSeeArr)
+

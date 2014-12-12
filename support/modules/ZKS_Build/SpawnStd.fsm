@@ -1,0 +1,151 @@
+/*%FSM<COMPILE "C:\Program Files (x86)\Bohemia Interactive\Tools\FSM Editor Personal Edition\scriptedFSM.cfg, SpawnStd">*/
+/*%FSM<HEAD>*/
+/*
+item0[] = {"START",0,250,626.311279,-1181.615356,716.311035,-1131.615356,0.000000,"START"};
+item1[] = {"Is_server",4,4314,625.567566,-1061.186646,715.567505,-1011.186829,0.000000,"Is server"};
+item2[] = {"not_server",4,218,842.071472,-1181.002075,932.071289,-1131.002319,0.000000,"not server"};
+item3[] = {"end",1,250,843.219788,-1060.406250,933.219543,-1010.406189,0.000000,"end"};
+item4[] = {"alive",2,250,624.582153,-930.827026,714.582153,-880.827026,0.000000,"alive"};
+item5[] = {"dead",4,218,622.471191,-802.059082,712.471313,-752.059082,0.000000,"dead"};
+item6[] = {"time_start",2,250,621.890930,-708.709961,711.890930,-658.709961,0.000000,"time" \n "start"};
+item7[] = {"respawn",4,218,428.263763,-707.066345,518.263794,-657.066345,0.000000,"respawn"};
+link0[] = {0,1};
+link1[] = {0,2};
+link2[] = {1,4};
+link3[] = {2,3};
+link4[] = {4,5};
+link5[] = {5,6};
+link6[] = {6,7};
+link7[] = {7,4};
+globals[] = {0.000000,0,0,0,0,640,480,2,218,6316128,1,-318.782623,1497.512207,-222.038681,-1566.397705,966,715,1};
+window[] = {0,-1,-1,-1,-1,879,24,1760,24,1,985};
+*//*%FSM</HEAD>*/
+class FSM
+{
+  fsmName = "SpawnStd";
+  class States
+  {
+    /*%FSM<STATE "START">*/
+    class START
+    {
+      name = "START";
+      init = /*%FSM<STATEINIT""">*/"// Script by Zonekiller  -- http://zonekiller.ath.cx --    -- zonekiller@live.com.au --" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       "" \n
+       ""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "not_server">*/
+        class not_server
+        {
+          priority = 0.000000;
+          to="end";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"!(isServer)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+        /*%FSM<LINK "Is_server">*/
+        class Is_server
+        {
+          priority = 0.000000;
+          to="alive";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(isServer)"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"_vehicle = _this select 0;" \n
+           "_side = _this select 1;" \n
+           "_pos = position _vehicle;" \n
+           "_dir = direction _vehicle;" \n
+           "_typeveh = typeOf _vehicle;" \n
+           ""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "end">*/
+    class end
+    {
+      name = "end";
+      init = /*%FSM<STATEINIT""">*/""/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "alive">*/
+    class alive
+    {
+      name = "alive";
+      init = /*%FSM<STATEINIT""">*/"_timeout = time;" \n
+       "_vehicle addEventHandler [""killed"", {detach (_this select 0);(_this select 0) setpos [(getPos (_this select 0) select 0),(getPos (_this select 0) select 1),0]}];"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "dead">*/
+        class dead
+        {
+          priority = 0.000000;
+          to="time_start";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(!(alive _vehicle) or (isNull _vehicle))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/""/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+    /*%FSM<STATE "time_start">*/
+    class time_start
+    {
+      name = "time_start";
+      init = /*%FSM<STATEINIT""">*/"_timeout = time;"/*%FSM</STATEINIT""">*/;
+      precondition = /*%FSM<STATEPRECONDITION""">*/""/*%FSM</STATEPRECONDITION""">*/;
+      class Links
+      {
+        /*%FSM<LINK "respawn">*/
+        class respawn
+        {
+          priority = 0.000000;
+          to="alive";
+          precondition = /*%FSM<CONDPRECONDITION""">*/""/*%FSM</CONDPRECONDITION""">*/;
+          condition=/*%FSM<CONDITION""">*/"(time > (_timeout + 60))"/*%FSM</CONDITION""">*/;
+          action=/*%FSM<ACTION""">*/"deleteVehicle _vehicle;" \n
+           "_vehicle = _typeveh createVehicle _pos;" \n
+           "_vehicle setdir _dir;" \n
+           "_vehicle setdamage 0;" \n
+           "_vehicle setFuel 1;" \n
+           "_vehicle setVehicleAmmo 1;" \n
+           "_vehicle setpos _pos;" \n
+           "" \n
+           "if (_side == ""west"") then " \n
+           "{" \n
+           "_vehicle setVehicleInit ""_nil = [this,false,'west'] execVM 'support\modules\ZKS_Build\cargomenu.sqf';"";" \n
+           "};" \n
+           "" \n
+           "if (_side == ""east"") then " \n
+           "{" \n
+           "_vehicle setVehicleInit ""_nil = [this,false,'east'] execVM 'support\modules\ZKS_Build\cargomenu.sqf';"";" \n
+           "};" \n
+           "" \n
+           "processInitCommands;" \n
+           "clearVehicleInit _vehicle;"/*%FSM</ACTION""">*/;
+        };
+        /*%FSM</LINK>*/
+      };
+    };
+    /*%FSM</STATE>*/
+  };
+  initState="START";
+  finalStates[] =
+  {
+    "end",
+  };
+};
+/*%FSM</COMPILE>*/

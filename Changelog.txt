@@ -1,0 +1,1208 @@
+Change Log:
+Thanks to:
+- MSO development team: Wolffy.au, Tupolov, Highhead, Jman, friznit, WobblyHeadedBob, zorrobyte, HateDread, kieran, Ryan, Kolmain
+- PersistentDB dev "team" - JMan, Scott W, Firefly
+- Antipop, Rommel, Militant, Scarecrow and Australian Armed Forces (AAF)
+- Ryan (Rye) and Snakedoctor from the Praetorian Guard (PRAETOR)
+- Friznit, Tupolov, DaveP, Gunny and Volunteer Commando Battalion (VCB)
+- Krause, Beta, Sandiford, JollyResq - United Operations (UO)
+- Fogu, VRCRaptor, Bl1P, Dikkeduif, Kremator, SCAJolly, Katipo66, vengeance1, Dingbat, CebAlmighty, Jayc-astv, 16AA, VCB and AEF clans for testing
+- Alef and Sickboy for CBA conversion for A2Free
+- Xeno and Mikero for their Mission Builder Script
+- Spyder for Object Network Update (ONU), LoyalGuard for ARMA Electrical Grids (AEG), ArmaIIholic and Highhead for World In Conflict (WICT), LurchiDerLurch for AC130 CAS
+- Robalo, USMCWall, Muzzleflash, Wobbleyheadedbob, Hatedread, Zonekiller, VoW Widow, Swedge, Lonestar, SBSMac, Prymsuspec, zGuba, Fireball, Nou, Jaynus, Norrin for bits and pieces we got from you
+- CWR� team, IceBreakr, Shezan, Commander, Old Bear for making your mods and islands MSO friendly
+- Roy86 for Patrol Ops 2 Module
+- Enigma for Weather Module
+- PXS for Satcoms
+- DevilDogGamer for his MSO videos and ongoing support!
+- Military Gaming Development Team for MGO Attach
+- Glowball for AIM support
+
+4.55 Changelog
+
+[AMBIENCE] Further improvements and compatibility with GBL Advanced Interaction Module
+[CORE] Made MSO compatible with playing as EAST/OPFOR (you need markers named: ammo, ammo_1, respawn_east and respawn_%faction% eg. respawn_RU)
+[AMBIENCE] Fixed: Civilians were deleted without proximitycheck - fixes: player got killed, if he took a civilian outside of town in a car. Ensures compatibility with civilian interactions (f.e. AIM: Arresting Civilians)
+[CORE] IMPORTANT: Garbage Collector of ACE Jerrycans and tyres (temporary workaround?). Ensures less load overall and decreasing performance over long term sessions.
+[ENEMY] DEP Better dispersion of enemy, new style of collecting locations (gives more and better enemy placements), select in params
+[ENEMY] IMPORTANT! Wrote our own taskdefend-function (HH_fnc_taskdefend) for better immersion than CBA_fnc_taskdefend but with better performance = less red chain/desync!
+[ENEMY] IMPORTANT! Made sure TUP_Roadblocks and TUP_AA are not re-compiled everytime they are called (also to ensure better perf. and less red chain/desync)!
+[ENEMY] IMPORTANT! Improved DEP Enpop so that killing a group makes you clear this group (and not spawn whole group again). Easier to clear camps now!
+[ENEMY] Fixed: guards deleted static weapons of camps when despawning.
+[ENEMY] Fixed: Tup_Roadblocks Vehicles were hovering in air, when spawned on a down/uphill road
+[ENEMY] Fixed: AA sometimes hovering in Air over Airfield (or [0,0,0] or mapcenterpos or "startpos") when BIS_fnc_safepos failed
+[ENEMY] Set DEP as default in SP or editormode
+[ENEMY] Fixed ambient convoys didnt clean up vehicles (only units)
+[CORE] Debug-Console Admin check now also working in SP/editor-mode
+[ENEMY] Changed BIN_fnc_taskdefend to CBA_fnc_taskdefend to reduce desync (too many instances at same time caused desync (red-chain))
+[CORE] Locked Admin-Console for non-admins
+[CORE] PDB Persist-action was lost after respawn
+[CORE] Added Frizzlers magicwand (for admins only)
+[PDB] Fixed: PID format issue for kills database
+[CORE] Disabled caching for single player
+[SUPPORT] Added GPS Para Drop to Tup_Logistics.
+[SUPPORT] Added limit to Tup_Logistics orders on a per session basis. Improved interface and convoy clean up.
+[MISSIONS] Unpersistet ACE crates to avoid PDB errors (and resupplied some missing ones)
+[MISSIONS] Added some missing resupplies (fallujah)
+[MISSIONS] Unpersistet some ACE crates to avoid PDB errors (clafghan)
+[MISSIONS] Unpersistet ACE crates in Zargabad mission to avoid PDB error (and made them resupplying)
+[MISSIONS] Changed BAF units to USMC and UN and set correct faction (for ACE UN/USMC vs. INS)
+[SUPPORT] Added Airlift and convoy to the logistics module, also the ability to order a Replen Dem (defined in logistics.hpp). Added the ability to define (in logistics.hpp) the items that a group can order. Can no longer paradrop tanks, or deliver defense supplies via convoy.
+[ENEMY] - Updated TUP_IED to support detection of IEDs by new ACE mine detectors
+[CORE] Added function that provides a basis for sending nicely formatted hints to players
+[CORE] Fixed: critical bug if onplayerdisconnect failed and player wasnt saved to DB yet (stuck on PDB screen / kill armaoa.exe in taskmanager)
+[CORE] Fixed JIP errors in rpt if player wasnt hurt, killed or respawned yet when saved to PDB (happened with ACE wounds).
+[MISSIONS] Updated all msofactions_defaults.hpp for duala-factions, removed unneeded msofactions.hpp also
+[ENEMY] - Added Isla Duala factions MOL_army and ibr_rebel_faction
+[SUPPORT] Updated Tup_logistics help to clarify where helicopters, MV22 and planes will land
+[SUPPORT] Updated and improved Tup_logistics, still only supports paradrop, but tidier and better interface/comms.
+[MISSIONS] Clafghan, some names where uses twice, also unpersistet some unsavable ACE Crates (threw error in RPT)
+[CORE] Several fixes in SQL dump
+[MISSIONS] placed missing ACE Magic box (zargabad)
+[MISSIONS] Placed missing ACE items crate and Magic box
+[MISSIONS] Fixed Chernarus UN vs. INS version - only had 1 playerslot! Also renamed for correct addons usage (ACE)
+[MISSIONS] Removed 18 slots Zargabad-mission (was actually only a copy of the 32 slots one)
+[MISSIONS] Renamed Clafghan mission for correct addons (ACEX)
+[ENEMY] Implemented Lazy Evaluation in DEP_PDB, changed sleep timing a bit
+[ENEMY] Implemented Lazy Evaluation in CQB (clientloop)
+[CORE] Fixed duplicate of mso_fnc_hasRadio
+[CORE] changed init-mods.sqf ACE Auto-AI healing to prevent masspile of civis healing you at base
+[SUPPORT] Updated Tup_Logistics so that fewer aircraft are used to deliver items.
+[PDB] Added support for Tup_logistics and script created items to be stored with PDB
+[PDB] - Fixed ACE Wounds respawn and heal issues with PDB
+[PDB] Removed Auto Increment counter from Schema
+[PDB] - Fixed support ACE Wounds, new schema provided also
+[MISSIONS] Updated Missions for TUP_Logistics and set DEP_PDB as default in params
+[ENEMY] Optimized DEP_PDB (one ring for all) and made it default (works also with non PDB)
+[SUPPORT] Excluded "UAV" in params text
+[SUPPORT] - Paradrop supplies at night now come with IR strobe markers
+[SUPPORT] - Added experimental paradrop resupply module fo' shizzle
+[CORE] - Removed the use of _time reserved variable.
+[SUPPORT] - Fixed incorrect reference to MGO
+[MISSIONS] Enabled CRB_Convoys again in missions modules.hpp
+[CORE] Fixed issue with lost/mixed up menu items due to mso-key beeing overwritten to late by init-mods.sqf
+[PDB] Fix for DEP LOCs, camps now spawn on restart
+[ENEMY] Updated Enemy Convoys to move between strategic CQB positions
+[ENEMY] - Updated and improved new Enemy Convoy module. Lowered number of concurrent convoys.
+[ENEMY] Updated and revamped enemy convoy. Now ambient enemy convoys roam around strategic locations. Off by default.
+[PDB] - Changed stored format for arrays, no longer remove [] from string.
+Revert "[MISSIONS] - Removed ACE Respawn module from missions to avoid duplicate ruck contents etc"
+[ENEMY] Fixed SAD_Nuke with a disarm-functionality
+[ENEMY] Applied fix for steep camps (if rmm_findflateara failed) in static enpop
+[ENEMY] Fallback to other MSO_factions if no appropriate group config was found (DEP and DEP_PDB). Fixed camps were sometimes not guarded by a second group (on the fly)
+[MISSIONS] Updated and fixed Hazar Kot mission
+[CORE] - Applied Apache License v2.0
+[ENEMY] Fixed: camps were placed at a random pos, if rmm_flatarea failed. Set to original pos. Also lowered mindistance to give more chances to find a flatposition.
+[MISSIONS] Added Adminactions to missions module.hpp
+[MISSIONS] Updated Lingor MSO (vanilla)
+[MISSIONS] Added optimized Fallujah (special settings in params.hpp like 2% CQB and 7% enpop)
+[AMBIENCE] widened Civi-Radius for case Fallujah in ambient civis
+[ENEMY] Lowered Patrolradius to be better compatible with PO2 MSO Autotasking
+[SCRIPTS] NUKE: made sure destruction effects work on all objects including trees, rocks and bushes. replaced nearestobjects by nearentities for performance. Fixed Clientside blinding FX when nuke goes off
+[CORE] Integrated JMANs Admin tools (default off)
+[ENEMY] Fix for PO2 mission where target was out of targetzone
+[MISSIONS] Removed dependency in Missions without weathermodule
+[MISSIONS] - Fixed Tora Bora mission - moved helicopter off of rocks.
+[MISSIONS] Fixed HazarKot double text reference
+[CORE] Added JMan, Scott W and Firefly to credits in briefing.
+[AMBIENCE] Civi settings for Clafghan
+[SUPPORT] - Updated MGO define to match folder name
+[SUPPORT] - Updated PXS_SATCOM define to match folder
+[CORE] Updated Briefing and Credits
+[PDB] NEW SQL DUMP: Fixed PDB for different Arma Versions, updated SQL Dump for 4.5 (also auto-inc lowered)
+[PDB] Deleted old SQL dump
+[CORE] Updated init for 4.5
+[RMM_ENEMYPOP] - Enabled Dynamic enemy pop for single player
+[ENEMY] CQB now uses FSMs for movements and also some further tweaks.
+[ENEMY] DEP, changed while loops to waituntil and for-loops (http://community.bistudio.com/wiki/Code_Optimisation#Loops)
+[ENEMY] Fix for "only few Roadblocks generated" with DEP and PDB
+[PDB] Added new SQL Dump (20120918)
+[PDB] Removed old SQL Dump (20120916)
+[SUPPORT] Delay for SATCOM-Start to avoid using it too often ("cheat")
+[PDB] Added param for Player Kill Stats
+[PDB] Added Player kills database and mechanism
+[CORE] Fixed (PDB): Player was invincible in Single-Player or Editor-preview
+[SUPPORT] New - PXS SATELLITE COMs
+[SUPPORT] Removed additional Task-Marker that was not remove-able anymore
+[CORE] - Added new global message function
+[crb_twnmgr] - HUMINT and SIGINT reports now broadcast to clients correctly
+[crb_twnmgr] - Added new param 'Broadcast Reports to sideChat'
+[CORE] - Fixed issue where 'NewMission' call was inserting 2 records into database
+[PDB] fixed issue #43440: https://dev-heaven.net/issues/43440
+[MGO] - Check and activate by default if in SP
+[CORE] - Thanks HH, additional locs on Clafghan
+[PDB] Added parameter to control Teleport to last saved position - now has option for Auto, Prompt or No
+[DEP] Fix for PDB and DEP compatibility with GUER
+[DEP] Fix for PDB and Guerilla compatibility.
+[MISSIONS] Provided MSO 4.5 RC candidate missions according to https://dev-heaven.net/issues/37932
+[ENEMY] CQB Check player distance instantly before spawn, to avoid too near spawnings
+[CORE] Excluded Respawn-Limit in NOMAD due to https://dev-heaven.net/issues/30191 and https://dev-heaven.net/issues/30191
+[ENEMY] Minor debug-line fix for Sniper Ops
+[ENEMY] Fixed PO2 Sniper Ops
+[ENEMY] PO2 now selects groups again in MSO-Autotasking
+[MISSION] Changed default params, undefined Tcells, WICT, Emergency Services, turned off caching by default
+[UI] - Updated all MSO menus to ensure items are below ACE menus. Reordered menus.
+[PDB] Added Save Player menu action to allow players to save state prior to disconnecting. This is a workaround until the OnPlayerDisconnected race condition is fixed by BIS
+[ENEMY] Removed ACE Overlap of PO2 (finally)
+[ENEMY] Moved DEP_convert_group function to regular DEP functions (needed for Sniperops fix)
+[PDB] lowered char-limit to 1900 have some buffer for extra bytes caused by ASCII chars
+[PDB] Fix for duplicate items on back
+[PDB] Fixed string length check - 4096 bytes or 2047 characters
+[PDB] Fixed vehicle contents, new schema, fixed object contents
+[ENEMY] Found and fixed a borked PO2 ACE function
+[ENEMY] Fix for camps in DEP
+[PDB] More fixes for DEP and PDB
+[PDB] Fixed Guerilla group spawn issue for DEP and PDB
+[PDB] Fixed incorrect LastConnected and LastDisconnected times, update default parameters
+[DEP] Removed debugging line
+[PDB] Updated default parameters, removed old SQL file
+[ENEMY] Added an Autoswitch-functionality in RMM_ENEMYPOP to correct main_pdb.sqf ("DEP") if PDB-locations are used
+[ENEMY] implemented a simple Blacklist for CQB (place markers with name "CQB_BL0" - "CQB_BL9")
+[CORE] Turned VehicleIgnitionKey feature to off by default in params
+[CORE] Corrected param-formatting in CRB_Timesync
+[SUPPORT] Adapted and implemented MGO Attach (Justin Alderman)
+[CORE] Removed Spyder_ONU (obsolete)
+[SUPPORT] Added Jmans Crew Info feature
+[CORE] Added Jmans Vehiclekeys feature
+[PDB] Fix for DEP_LOC
+[PDB] Added Tasks to PDB, fixed some param loading issues, cleaned up some logging and improved tasks functionality to allow state updates
+[PDB] Updated schema
+[PDB] Added persistent AARs to PDB. Requires updated ARMA2Net to v2.20, updated ARMA2NetMySQLPlugin, updated MSO Schema, updated Databases.txt format (see wiki)
+[PDB] Added support for storing JIP Markers (now named Team Markers) to PDB
+[PDB] Updated PDB, Schema AND ARMA2Net folder to support storing additional information to mission data
+[PDB] Cleaned up PDB/CQB code to reduce logging
+[PDB] Added PDB support for Dynamic Enemy Pop (DEP), ensure you select the correct parameters in PDB and EN POP to enable this functionality. UPDATED SCHEMA added to PDB folder
+[ENEMY] CQB groups now consist of the same faction
+[ENEMY] updated dyn pdb enemypop with ep_locations for backward-compatibility and PO2 MSO Autotasking
+[ENEMY] "New" Enpop - Roadblocks work now, Fixed wrong comments in Dataset and some minor bugs, changed Params display name
+[ENEMY] Recode of RMM_Enemypop to make it PDB compatible (Use mission param "Dynamic Enemypop" -> "PDB").
+[ENEMY] Added some strategic buildingtypes in CQB
+[ENEMY] CQB was off by default if default value was set to 0.5 (5%) in params
+[ENEMY] Fixed Bug in Suiciders, where all CIV factions were selected instead of only the ones used in mission
+[ENEMY] Fixed bug in dynamic rmm_enemypop where no MSO_FACTIONS were used (east factions instead)
+[WHB_Multispawn] - Added NaturalDoc-style comments and renamed relevant function calls
+
+4.4 Changelog
+
+[PDB] - Small updates to support latest version of Arma2Net1.11.1 and MySQLPlugIn by Firefly
+[PDB] - Fixed CQB location load issue with setting cleared to true
+[PDB] - Added location persistence as experimental - supporting ONLY CQB for now.
+[PDB] - Fixed date restore typo
+[PDB] - Fix client side setting of data (fixes personal weapons etc)
+[PDB] - Added server and player auto-save feature, initial fix for non-english decimal point, only objects/vehicles with a name are saved.
+[PDB] - New DB schema to fix Vehicle damage issue
+[PDB] - Removed reliance on R3F, enabled all vehicles including aircraft, fixed date error, streamlined player system init
+[PDB] - Updated object/vehicle loading/saving - only named objects will now be stored, should also fix player/vehicle issue
+[PDB] - fixed out of order sql issue for ACE
+[PDB] - ACE ruck and weapons fix.
+[PDB] - Updated DB schema
+[PDB] - Major re-write of persistentDB. Rewritten client side data mechanism, updated player data, enhanced vehicles and add objects. Still WIP, but should be functional enough for play testing. New SQL schema posted and included in persistentDB folder.
+- Note: Objects requires R3F, PDB currently does not support R3F cargo functionality, remove cargo before exiting mission. Objects that need to be persisted (i.e. those that are resupplied) should have a name added to them in the editor (or via text replacement in SQM).
+- Note: Vehicles should be have the word "mso" in their editor name to be persisted.
+[DRN_WEATHER] - Reduced maximum fog to 0.5
+[RMM_SETTINGS] - Changed defaults as per params
+[PARAMS] Changed default parameters to my "recommended" ones (feel free to change em back again if you dont like it)
+[CORE] - Replaced HeliHEmpty with HeliH for Eden
+[CORE] Excluded CRB_Timesync (Wolffys suggestion for 4.4)
+[DRN_WEATHER] - Updated to version 2
+- Found CRB_TIMESYNC works better with setDate for DRN_WEATHER, changed default
+[RMM_WEATHER] - Removed time sync component
+[CRB_TIMESYNC] - Disabled time sync by default
+[CORE] - Removed Utes BorderCrossing markers
+[CORE] - Removed time sync out of CRB_TIMESYNC and just left custom mission time params (customizable, you can turn timesync also on)
+[CRB_TIMESYNC] - Separated time sync component
+- Limited to 2 type of sync method (skipTime/setDate)
+- Removed parameters due to time sync > 2 mins being an issue
+[CORE] - Updated persistentDB schema
+[CORE] - Updated persistentDB to support player kills and other stats, mission params and minor updates
+[CORE] Hotfix to prevent endless creation of logics and vehicles in FN_initlocations on JIP (only serverside init again and CRB_LOCs are PV'd once on mission start)
+[CORE] - Added new params to persistentDB to support custom persistence, added shotsFired counter
+[CORE] - Fixed rank sync issue for persistentDB. Rank does not appear to be MP compat atm.
+[CORE] - Added MSO sql dump file to GIT
+[CORE] - Fixed issue with null terraindetail value being passed by persistentDB
+[CORE] - Fixed updating viewdistance for persistenDB
+[CORE] - Fixed null scalar values in persistentDB
+[CORE] - Fixed data parsing issue when reloading player data for persistentDB
+[CORE] - Added experimental persistentDB functionality. (turn off NOMAD if you are going to use it, check with Tupolov for the mso db schema required)
+[CORE] - Updated settings module to support persistentDB (to store viewdistance and terraindetail)
+[CORE] - Fixed debug in BIS_fnc_locations
+- Removed broadcast setVariables from ALICE2
+- Removed SP debug_serverfps by default
+- Changed initialisation to blackened screens, as init time takes longer since CRB_LOCS has moved client-side
+- Moved CRB_LOCS functions to common
+[CORE] set default rmm_ep_spawn_dist to make rmm_debug independent from enemypop (workaround)
+[CORE] - Improved CEP Caching debugging
+[ALL] optimized array-addtion to use "set" method (should improve performance)
+
+
+[SUPPORT] Implemented custom CAS-spawn marker (default as is). Mission designer can place a marker named "CAS_spawn" on the pos he likes CAS to be spawned. Made CAS working on Clafghan (northern populated at least) this way.
+[SUPPORT] Widened Safepos radius in WHB Mltispwn to prevent respawn error (respawned in air or 0,0,0)
+[SUPPORT] Made WOB_Mltispwn indipendent of CBA
+[R3F_logistics] - fixed issue introduced in last commit (repeated 'View vehicle contents' action)
+[R3F_logistics] - some array addition optimised for adding new objects
+[R3F_logistics] - Translated to Frenglish
+[SUPPORT] Fixed .rpt errors on townmanager if ALICE was not present
+[SUPPORT] Check for ACE on initialization of RMM_Revive, R3F_Revive, RMM_Tyres
+[SUPPORT] Excluded AC130 and UAV until we found a fix (client logics passed to server on disc)
+[WHB_Multispawn] - Change Deployment Delay back to 5 mins
+[CRB_TOWNMGR] - Fixed no name bug
+[CRB_TOWNMGR] - Fixed broken markers
+- Get town size from ALICE
+[R3F_LOGISTICS] - Added Wildcat
+[SUPPORT] Added R3F_Revive Module (default off)
+[CRB_TOWNMGR] - Change function server-side to prevent multiple creation of client-side logics
+[BIS_SOM] - http://forums.bistudio.com/showthread.php?132307-Multi-Session-Operations-v4-2-released&p=2136015&viewfull=1#post2136015
+
+
+[CRB_CIVILIANS] - (potentially) fixed spawn on roof bug
+[TUP_AIRTRAFFIC] - Reverted ROE to Hold Fire - Defend only
+- Single player All Factions
+[CRB_CIVILIANS] - Renabled Vehicles and Animals as testing shows no sustained impact
+[CRB_CIVILIANS] - Updated islands to increase buildings distance included in population
+[TUP_AIRTRAFFIC] - general reformat
+- if group dies, delete
+[TUP_SEATRAFFIC] - Fixed bug where passengers weren't deleted
+- general reformat
+[RMM_CTP] - Added debug
+[CRB_CIVILIANS] - Only create logics if don't exist
+- Added Hazar Kot
+[CRB_CIVILIANS] - Increased flicker delay and randomised rotation delay
+- Randomised driver skill
+- Increased town range in Takistan
+- Reverted to default for Respect and ThreatDecay
+[AMBIENCE] Fixed script-path error in ambient Civs
+[CRB_CIVILIANS] - Added waitUntil check for CRB_LOCS
+- Replaced CRB_LOC_DIST with default calculation
+- Added TPW Houselights to Takistani house models (BIS_fnc_houseEffects)
+- Added ALICE_townsize setting which enlarges house search radius
+- Completely re-wrote ALICE2_houseEffects.sqf to be more efficient
+- Removed requirement for BIS_ALICE_EmptyDoor objects
+[CRB_CIVILIANS] - Town group set to broadcast
+- Civs only spawn only on clients
+- Civs only despawn by the server
+- Reverted marker removal
+- Reverted traffic delay to random 60 sec
+[CRB_CIVILIANS] - Changed settings for Takistan
+- Fixed Delete debug marker error
+- Removed superfulous speed limiting
+- Added client side load balancing to civs spawning
+[CRB_CIVILIANS] - More bug fixes for client-side AI
+[CRB_CIVILIANS] - Moved ambient civilians, car and animals to run client-side
+[CRB_CIVILIANS] - Fixed bug re default ALICE_townsize
+
+
+[MISSIONS] - Updated CWR2 MSO on Everon
+- Added BAF only Chernarus mission
+[MISSIONS] - Updated Hazar Kot mission
+[MISSIONS] - Updated ACE Taki mission
+[MISSIONS] mission.sqm: removed some lamp-logics and surrender module that wandered to server on disconnect
+tested most of modules for growing allmissionobjects-count and excluded unsafe ones (not quite finished)
+this has to be checked if running that module clientside: twnmgr (massivly growing missionobjects), civis (logic is passed), CAS (LDL creating logics), AEG (logics again), TUP_sea (also logics), Marta
+[MISSIONS] - Added Celle 2, 32 slot mission.
+[MISSIONS] - Removed old test marker from Zargabad 32 slot ACE mission
+[MISSIONS] - Updated Lingor mission with Lingor factions as default.
+- Fixed Lingor PO2 issues where commander could not call PO2.
+
+
+[ENEMY] - Added Disarm IED feature to IEDs generated with IED - can be used with THOR III, ACE_Minedetector_US or as Engineer class
+[ENEMY] Infinite groupcreation fixed (hopefully)
+[ENEMY] Fixed CQB PDB bug
+[ENEMY] Changed param-formatting for WICT and PO2 (small one)
+[ENEMY] Added ZORA-Switch in params (on/off, max simultan groups, minimum spawndistance) default is 750m and 3 groups, so should also fix to close spawning that Zorro and i observed
+[ENEMY] Stated in Params that RMM_EnPop is needed for autotasking
+[ENEMY] Added PO2 Sniper-operations (incl. MSO autotasking)
+[ENEMY] Introduced MSO Autotasking on PO2 for dynamic enpop (incl. TUP_AA & roadblocks)
+- no static rmm_enpop or tasks on TCells yet
+[ENEMY] Dynamic Enpop: delayed despawn to 20 seconds to fix weird behaviour if FOB was overrun by enemies and only one player was near
+[ENEMY] Dynamic EnPop fixed patrolarea and baseguards on respawn...
+- Groups broke out of patrolarea when respawning on former stored position.
+- Not restore baseguards position (better placed directly). Sometimes they lost themselves.
+[ENEMY] Position of despawned groups is now restored
+[ENEMY] Failsafe in CQB if no ammo and ammo_1 markers are present (mapcenter and respawn_west)
+[RMM_ZORA] - Increased chances of ZORA enemy
+[ENEMY] Some further CQB changes
+- nearer spawnpositions spawn earlier
+- units are created below houses (to prevent of being seen before positioned correctly)
+- units positioned 0.5 mtrs to prevent stuck units on some maps
+[ENEMY] Delete units if no spawnposition is found
+[ENEMY] Made sure that CQB units wont get deleted instantly on players death but with a 20 seconds delay
+[ENEMY] Changed spawn-function to use BIS_fnc_spawnGroup (testwise)
+[ENEMY] Groupclasses are now saved and restored on group-recreation in dynamic RMM_Enemypop
+[ENEMY] Changed some diag_logs to debug (esp. on unit-creation, which could have caused stuttering)
+[ENEMY] Pushed "dynamic" rmm_enemypop to base mission (incl. parameter-switch, default off)
+[ENEMY] Loadbalancing for CQB
+[ENEMY] Added optional CQB max groups parameter
+[ENEMY] Changed temporary [0,0,0] spawnpos to real pos in CQB for better caching performance
+[ENEMY] Randomized fortification spawn in CQB (66% population grade on forts, bunkers, etc.)
+[ENEMY] Fixed suspended spawnpositions were not set back to active if units were cleaned up by Garbage Collector
+[ENEMY] CQB Serverside Garbage Collector, Tweaked CQB_AICap and limited CQB to 55 groups, lower search-radius for buildings, different call of functions
+[ENEMY] - Fixed playableunits zero divisor error with CQB
+[ENEMY] Added RMM_EnPop intensity 10% and 20%, ideally to be used with infantry "off" and only Motorized/Mech/Armor, until RMM_Enemypop is moved clientside completely
+[ENEMY] Check that units wont be created near player, added 5% buildingcount-option, changed to AUTO AI-Cap, raised spawndistance a bit
+[EMENY] Updated to include police and updated enemy/modules/modules.hpp
+[ENEMY] CQB fills fortifications, massive cleanup of functions
+[ENEMY] Updated multiple missions msofactions_defaults.hpp
+[ENEMY] Updated multiple missions msofactions_defaults.hpp
+[ENEMY] Modified msofactions_defaults.hpp in Lingor mission
+[ENEMY] Added additional Lingor factions
+[ENEMY] Added automatic function that sets AI-Cap by playercount
+[ENEMY] AI-CAP for CQB
+[ENEMY] Made sure that thread after CQB cleanup
+[ENEMY] Changed CQB Houseguards to use a slightly altered version of CRB_housepos
+[ENEMY] - Updated roadblocks to spawn only when players are within spawn distance (default: 2000m)
+[ENEMY] Fixed houseguard-clearance for JIP, put back in CRB_LOC_DIST
+[ENEMY] CQB is now JIP-compatible! Tuned down patrols! Loads of changes!
+[ENEMY] - Updated Tcells to use safezone setting for spawn
+[ENEMY] in PO2, i changed "HeliHEmpty"-object to "can_small" in spawn_opfor_snipers
+[ENEMY] "Helicopter force from hell" should be fixed
+[ENEMY] Added CQB houseguards
+- changed startup and running process to use to precompiled functions
+- changed !isserver to !isdedicated
+[ENEMY] Fixed CQB groups not deleted and added CQB Garbagecollector
+- Patrols now go back on patrol if players move out of spawnarea and come back in
+- added more debug diags
+[ENEMY] Added a failsafe for ambient bombers to work with clientside civs (workaround)
+[ENEMY] Changed PO2 to check for rank and not for teamleads
+[ENEMY] Turned off terrorists until moved to clientside or fixed (breaks initalizing enemypop-modules)
+[ENEMY] Added some teamleads request by alderman
+[ENEMY] Changed BIS fnc to BIN fnc in CQB
+[ENEMY] Added PO2 convoy task for testing purpose
+[ENEMY] Changed CQB spawn to wait for group to be deleted before spawning again
+- prepared collection of cleared positions (not transferred as PV yet)
+[ENEMY] - Minor tweaks to CQB_POP (added param for intensity)
+[ENEMY] - Updated Highhead's CQB_POP module with various fixes and tweaks
+[ENEMY] - Fixed terrorist cells so that they are compatible with caching and do not get cached (set rmm_gtk_exclude).
+[ENEMY] - Fixed Enemy Pop so that when disabled the script exits
+[ENEMY] Changed CQB debug_mso, made it independend from other modules
+added friendly zone, changed despawnmode,
+[ENEMY] Made PO2 work in Singleplayer
+[ENEMY] Added CQB Spawn - experimental
+[PO2] - Updated Nuke mission intel.
+[ENEMY] Added PO2 Task Nuclear threat to "Domination" for testing (need to clear it from there again)
+[ENEMY] Added PO2 Task -Nuclear Threat- (sad_nuke.sqf)
+[ENEMY] Made sure TCells dont spawn near mission-start
+[ENEMY] Show diag_log for "waiting"-entry only when debug is on
+
+
+[SCRIPTS] Nuke can now be easily called locally by a missionmaker (and is executed globally)
+[SCRIPTS] Added clientside Radiation-Zone FX for nuke
+
+
+v4.3
+
+[MISSIONS] - Updated missions to include Roy_patrolops2
+[MISSIONS] - USMC/UN vs INS on Chernarus
+[MISSIONS] - Updated missions to support WHB Multispawn (added MHQState variable to M1130)
+[MISSIONS] - Removed old mso factions def from lingor mission
+[MISSIONS] - Updated Lingor Enemy Module definition
+[MISSIONS] Pushed ACE mission with changed respawn_markers
+[MISSIONS] updated respawn_markers to respawn_%faction% in Non-ACE versions and changed "Set Spawn" on HQs to correct path
+[MISSIONS] - Updated Core on Chernarus
+[MISSIONS] - Added Ambience on Celle - Renamed mission name that was too long for editor
+[Missions] - Added Core test mission on Celle
+[Missions] - Updated debug mission
+[MISSIONS] - added CWR2 on Everon MSO - added 32 ACE COOP on Hazar-Kot - updated 32 ACE COOP on Zargabad
+[MISSIONS] - Added 32 ACE COOP US/CZ vs TAK on Zargabad
+
+[SCRIPTS] Performance improvements on nuke
+[SCRIPTS] Cleaned up Nuke code
+[SCRIPTS] forgot to stage Nuke code
+[SCRIPTS] Added MP compatible Nuke ([position] execvm "scripts\nuke\nuke.sqf", execute on all localities)
+
+[AMBIENCE] Switched off Emergency Services for stability (hopefully fixes crashes)
+[AMBIENCE] Added global debug to Emergency services
+[AMBIENCE] Added Celle 2 to Civilian Setup
+[CRB_CIVILIANS] Corrected CIV Faction to CIV_LGR to ensure compatibility with Lingor
+[CRB_SHEPERDS] Added default sheperdclass
+[CRB_CIVILIANS] - Added Lingor settings - Added #ifdef for TUP_IEDs to ambient vehicles - Removed broadcast setVariable
+[BIS Ambient Civs] - Re-enabling opening/closing doors as it is not the cause of game freezing
+[TUP_SEATRAFFIC] - Typo in params
+[TUP_SEATRAFFIC] - Added faction control
+[CRB_AMBIENTCIVS] - Reduced population count in Chernarus
+[BIS Civilians] - Disabled auto door closing until performance can be improved.
+[CRB_Dogs] - Added additional location types
+[CRB_Shepherd] - Added additional location types - Updated Hazar-Kot, still plenty of bugs
+
+[ENEMY] - Fixed IEDs not created (4 elements instead of 3 and a ] too much)
+[ENEMY] - Updated IED triggers to only occur once and not repeatedly
+[ENEMY] - Fixed AA debug issue
+[ENEMY] - Improved EOD_IED debug markers
+[ENEMY] - More debug improvements for TUP_IED
+[ENEMY] - Added global debug for Patrol Ops
+[ENEMY] - Further improvements to TUP_IED debugging, adding VB-IED markers
+[ENEMY] - Updated TUP_IED debugging to clearly show trigger circles for IEDs (yellow) and Suicides (orange)
+[ENEMY] - Reformatted factions parameters
+[ENEMY] - Added factions Iran (NLA), Lingor Rebels (ibr_ARL_faction), Lingor Druglords Army (ibr_DRG_faction)
+[RMM_ENEMYPOP] debug to false for release
+[ROY_PATROLOPS] Added FR_R to Teamleaders (Saboteurs are nice), added debug to flatarea in PO2 module
+[ROY_PATROLOPS] Added Guerillas to PO2 (nice on Lingor)
+[ROY_PATROLOPS] Added Baseguards for created Camps
+[ENEMY] Updated AA spawns to reduce the number of static guns
+[WICT_enemypop] statet, that its a standalone module
+[ENEMY] Fixed missing }; in Enemy Pop to ensure enemy locations are not spawned within safe distance.
+[ENEMY] Fixed TUP_IED so that Ambient Suicide Bombers only spawn if ambient civilians has been enabled.
+[RMM_ENEMYPOP] fixed error with private variable "_debug"
+[WICT_ENEMYPOP] - Removed dependency on add/removeLoopHandler
+[RMM_ENEMYPOP] - Removed dependency on add/removeLoopHandler
+[RMM_ENEMYPOP] fixed loading times and steep hillside camps
+[CRB_CONVOYS] turned off by default (is included in PO2)
+[ROY_PATROLOPS] changed return point to respawn_west
+[ROY_PATROLOPS] added "unlimited missions" parameter
+[ROY_PATROLOPS] changed trigger area in CAP_vehicle,SAR_Pilot,SAR_pow to 100 mtrs at RTP
+[ROY_PATROLOPS] turned off caching for task CRB_convoy
+[ROY_PATROLOPS] turned off caching for task SAD_bombcar
+[ROY_PATROLOPS] changed text for task SAD_tower (is better for unnamed hills)
+[RMM_ENEMYPOP] - Fixed typo - Changed function dependency on ROY_PATROLOPS to copy/paste of function - Renamed function name for future proofing
+[ENEMY] - Fixed missing lines in AA spawn script
+[ENEMY] - Updated AA spawn script so that AA sites are not spawned near each other, that static sites have some camp element and the static weapons are within 20m of the camp
+[ENEMY] - Added Anti Air site/unit spawning and parameters to enable/disable or specify guns only. - Updated fn_randomGroup to support filtering of AA units (or any other group) - Updated Enemy pop camps to point in direction of location they are defending
+[ENEMY] - Update Enemy population to exclude locations within spawn distance of ammo and ammo_1 markers.
+[ENEMY] - Fixed Enemy population house patrol issue (now executing when a camp does not exist)
+[ENEMY] - Updated Enemy Population to use parameters for defining possibility of Infantry, Motorized, Mechanized or Armoured Units
+[ENEMY] - Updated Enemy Population to randomly spawn road blocks near towns
+[ENEMY] - Updated Enemy Population to randomly patrol houses when nearby (using CRB_HousePos script)
+[ENEMY] - Updated Enemy Pop to use mps_getflatarea for camp locations, tweaked distances to suit locations
+[ENEMY] Updated TUP_IED giving choice of whether IEDs spawn in enemy occupied towns only or randomly.
+[ENEMY] - Fixed TUP_IED so that it no longer spawns IEDs in towns/locations where players spawn or where an "ammo" or "ammo_1" marker exists
+[PO2] splitted operation lines for air/armored/etc.-ops, switchoffable in Params
+[PO2] changed way of signing in (now over comms and interaction menu), disabled
+[PO2] split up many parts of PO2 and tweaked quite a bit
+[PO2] slight changes in CRB_convoy-task (diablecache)
+[ENEMY] - Patrol Ops 2 - Added correct params for Air ops
+[ENEMY] - Patrol Ops 2 - Updated Air tasks and function to check if target has been destroyed by aircraft
+[ENEMY] - Patrol Ops 2 - Added Air Ops for experimental use
+[PO2] fixed bug where no location was found in some tasks
+[CWR2 ENEMYPOP] - added CWR2 compositions
+
+[DEBUG] - Added player spawn zone marker, updated reezo IED marker
+[DEBUG] - Fixed debug for SP/Editor
+[DEBUG] - Updated debugging to provide better view using markers of what's going on
+[RMM_DEBUG] - Server FPS dependency on PublicVariable removed
+[RMM_DEBUG] - Private variable fix
+
+[RMM_NOMAD] - Fixed disconnect with Infinite lives set
+[RMM_NOMAD] - Removed CBA_fnc_AddMagazineVerified - Reverted back from initialisation delay, as it broke NOMAD functionality ie you wait for 2 mins before being teleported to your last location, etc - Removed one PublicVariable instance (2 to go)
+[RMM NOMAD] - Added initial delay minimum 2 mins + random nomadTime
+[CORE] - Disabled BIS Core Conversations for all players
+[CORE] - Implemented global debug param, updated version to 4.30
+[CORE] Updated ACE menu definition in init-mods.sqf to fix error in RPT
+[CORE] - Moved Mission Params Headers to decscription.ext - Formatted all other params accordingly
+[CORE] rewrote and optimized randomgroupbytype, added fallback to "man" to ensure lingor_units compatibility
+[CORE] - Signature changes
+[CORE] Introduced Function mso_core_fnc_randomgroupbytype, that creates a group of random vehicles of a certain type Infantry, Motorized, Mechanized, Armored - also works with no group defined configs.
+[CORE] fixed error when no usable groupconfigs are found in all MSOFactions! Defaulting to function fn_randomgroupbytype then.
+[CORE] - Reverted CBA GlobalExec change
+[CORE] - Moved initialisation messages to Map Menu - Move ACE specific code to init-mods.sqf
+[CORE] - Disabling add/removeLoopHandler as deprecated functions (Flies, Sandstorms and Crows still pending for removal)
+[CORE] - Moved version information to core\init.sqf - Added automatic load for BIS Functions if not enabled in editor
+[CORE] - Changed RMM_ExMP to use CBA_globalExecute instead
+[CORE] Fixed Caching so that it does not initialize client-side.
+[CORE] - Updated init-mods.sqf with ACE and ACE WOUNDS parameters. Also updated the EOD code to support the new EOD Loudspeaker implementation. Updated CIM extraction heli pad code to use mps_getFlatArea.
+[CORE] - Fixed EOD Loudspeaker, now works with JIP and on dedicated server.
+[CORE] - Fixed module messages (showing when disabled)
+[CORE] - Fixed compositions not spawning on dedicated servers, objects no longer created locally
+[CORE] - Fixed issue where EOD THOR devices were not being added to crates in dedicated server scenario
+[RMM_MPRIGHTS] - Removed dependency on add/removeLoopHandler
+[RMM_WEATHER] - Changed timesync default to monitor only - Change time check resolution to 1000's of a second (using time instead of date) - Using skipTime to adjust - Removed obsoleted dynamic weather out of code
+
+[SUPPORT] Updated CAS to abort if the aircraft is damaged
+[SUPPORT] Improved CAS code to provide more comms, reduce network load.
+[SUPPORT] Improved CAS module to include radio comms from CAS Pilot to update on status (ETA, RTB, Damaged)
+[SUPPORT] Fixed issue where UAV fired mounted Hellfire have little damage effect.
+[SUPPORT] Fixed CASEVAC module, no longer throws error when calling nine liner. Better selection of landing positions and more robust if CASEVAC is damaged.
+[SUPPORT] - Updated Recruitment module to provide performance enhancement on client side scripts
+[SUPPORT] Updated Recruitment so that script runs client-side only to reduce hit on server.
+[SUPPORT] - Fixed recruitment dedi server issue (forgot to broadcast the classes)
+[SUPPORT] - Upgraded Recruitment to now dynamically get all available Man classes irrespective of add-ons etc. for players faction
+[SUPPORT] - Code cleanup: added default case to the setDefaultSpawn method
+[SUPPORT] - Forgot to update path in support init
+[SUPPORT] Fixed - being able to deploy MHQ multiple times - Added - Option to autocreate JIP Marker on deploy
+[WHB_Multispawn] - Added failsafe for faction marker if absent.
+[WHB_Multispawn] - Added check to see if FOB hasn't been destroyed before respawning there
+[WHB_Multispawn] - Default spawn locations based on faction e.g. respawn_USMC, respawn_BIS_US, etc.
+[WHB_Multispawn] - Fixed a bug where the direction of the FOB/MHQ was not set correctly on dedi servers
+[TOWNMGR] Fixed wrong town names
+
+v4.2
+Core
+- Added CWR� M113 HQ to WHB Multispawn
+- Added CWR� US units to Recruitment
+- Updated init.sqf scripts so that we have a separate init-mods.sqf for mods supported by MSO.
+- Added message telling players when they can reconnect
+- Added function descriptors in NOUJAY messages
+- Initialisation completed message in log
+- removed clearmemory script in corescript.sqf (obsolete due to WICT AI cap and AI caching modules)!
+- Added DRN Dynamic Weather (thanks Engima)
+- Pre-initialise the Communications Menu to be compatible with BIS modules
+- Initalise the GC trashIt function if required
+
+Support
+- Fixed Town Manager marker coloring bug (Bug #28901)
+- Added content of R3F_Log/addons_config/ configfiles to config.sqf  (more comfortable to mission makers) and deleted obsolete files. https://dev-heaven.net/issues/28894
+- Fixed mission construction module entry
+- Disable BIS SOM until completely working
+- Added SL's to recruitment
+- Cleaned up support module parameters (specifically Mobile HQ/Multispawn)
+- Updated BIS_SOM module to include a parameter to turn it on or off at mission time.
+- Updates to BI SOM module
+- Enabled SOM support requests but still not completely working on dedi
+- Added the BIS SOM Module to Support (currently side missions only)
+
+Enemy
+- Prevented TCells from recruiting if > 150 OPFOR units exist (Feature #27597)
+- Made CRB_Convoy a PO2 task
+- Updated PO2 to use locations more wisely (improves Zargabad usage)
+- Added server check for spawning HQ and then broadcasting as a public variable
+- Updated Terror Cells to now randomly setup road block near town (30% chance)
+- Added script that allows enemy to setup roadblock
+- Cleaned up Patrol Ops 2 and updated R3F to support some of the PO2 RTF missions
+- TUP_IED improvements - added EOD loudspeakers to vehicles, double number of IEDs if enemy present, cleaned up IED object lists
+- Update of PO2 to v082
+- Reduced default intensity of TUP_IED
+- Updated WICT (26.01.2012, v.04.10.001, thanks Highhead
+- changed max. safepos in main.sqf for camps and AI to have baseguards and to get better spawning positions of bases (not in hills and elevation)
+- Added OCB Roy86's Patrol Ops 2 enemy module, courtesy of Highhead
+- TUP_IED bug fixes and general improvements
+- Terrorists don't react when travelling in car unless BLUFOR are within 200m and below 50 feet
+- Updated TUP_IED so IED's only spawn if players are on the ground (less than 25m)
+- Reduced ZORA max groups to 2
+- Improved logging on TUP_IED and added parameter to use EOD add-on or not if it is available
+- WICT is changed to off as default as this can load the server and may not be a common choice
+- Added TUP_IED module, places ambient IEDs, VBIEDs and Suicide Bombers on any map, also automatically integrates with Reezo's EOD addon (optional)
+- Improved Reezo EOD addon by replacing addon scripts in mission (IEDs only detonate for players now, random smaller charges, better logging)
+- Updated Terrorist Cells to use TUP_IED for VBIEDs
+- Added towns to possible spawn locations (Tcells)
+- Increased chances of ammo boxes with launchers
+- Default 8 recruits per hour
+- Allowed previously driven cars to be used by terrorists
+- Fixed ammo crates on roofs problem
+- Fixed cars parked in middle of the road problem
+- Fixed ammo crates in the air problem
+- Fixed bug where TCell recruitment stuck at 1 per hour
+- Fixed mark enemy based on friendliness
+- ZORA deletes groups out of maxdist range
+
+Ambience
+- Dogs only bark when approached
+- Made shepherds more reactive when their flock are shot or injured (except by vehicles)
+- Minor dogs fixes
+- Converted dogs from MSO Loop method to WaitUnitl
+- Fixed ALICE civilians selection
+- Changed selection of skins from ALICE_classes
+- Changed default parameters for Ambient Air (All Factions by default) and WICT (Off by default)
+- Ambient Air is changed now that aircraft truly Never Fire when told to do so, so enemy aircraft pose no threat (and sound/look very good)
+- Updated Civilian Vehicles so certain amount are VBIEDs (if enabled in params)
+- Removed BIS_CIV_special from ambient civilians
+- Removed ALICE2 customisations
+- Random door closer
+
+Missions
+- Updated 32_ACE_COOP_BAF_USA_vs_TAK_INS_GUE
+* disabled RMM_Tyres
+* moved respawn_west marker to somewhere close
+* updated custom files
+- Updated urban ops missions
+- Obsoleted support for A2Free until someone tells us they are using it
+- Added Villa helipad to Zargabad
+
+Other
+- Fixed guard post and House patrol scripts
+- Added spawnCrew function (searches the area for vehicles and spawns crew, useful for compositions)
+- Fixed default factions in SP
+
+v4.1
+Core
+====
+- NOU Cache - if group leader dies while group is cached, uncache next leader
+- Increased default view distance to 2500m
+- Disable OSOM until fixed
+- Updated GTK with mission params
+- Added support for Nielsen's Civilian Interaction Module (running Interaction, Reaction and Extraction components) - init-custom.sqf
+- Added ACE hand cuffs, ear plugs and safety googles to players running ACE
+- If group is newly split from another group, uncache leader and any drivers
+- Removed OSL as now obsolete
+- Removed JCache as now obsolete
+- Simplified NOU caching further
+- Enabled CEP caching to use GTK
+- Fixed GC check during init
+- Fixed vehicles caching
+- Using GTK with NOUJAY Cache
+- CWR� changes
+- Standardised RPT message for versioning
+- Fixed GC initialisation
+- Added GC test script
+- Added RPT line for total Locations found
+- Fixed Default, Eden and Tora Bora settings
+- Updated NOMAD to support manual player state save
+- Increased options for Nomad save time in nomad params
+- Add menu selection for player to manually save position/state using interaction menu
+- Added the use of CBA_fnc_AddMagazineVerified (now that it is working) when restoring player weapon magazines on reconnect (Nomad)
+- Added support in NOMAD for adding ACRE base radios on reconnect rather than ACRE radios with IDs.
+- Added parameter to control how often Nomad saves player data
+- Print mission parameters in RPT
+- Added support for EOD Addon - automatically add THOR III ECM to select (ACRE Box, ACE Ruck Box, Basic Weapons Box) ammo crates near "ammo" or "ammo_1" markers.
+- Added support for EOD Radio Controlled IED for terrorist vehicles, added IED object to support any IED detection items.
+- Fixed path to vehicledrivercheck.fsm
+
+Ambience
+========
+- Added another potential police station building for Everon
+- Added passengers to ambient sea vehicles
+- Fixed Never Fire code spelling mistake, all removed ammo from aircraft.
+
+Support
+====
+- SOM fixes to work on dedicated server
+- Fixed CASEVAC to check for hospital or ammo marker for RTB
+- Added colour selection to JIP Markers
+
+Enemy
+====
+- Increased ZORA max groups and decreased search radius (overall intensity increase)
+- Added Highhead's WICT Module updates
+- Updated logging on HAC scripts
+- Added additional parameter value for EN POP spawn distance (20km), so that all EN Pop are spawned on maps smaller than 20km.
+- Updated Rydygier's HAC module, fixed acre issue and disabled by default
+- Added Tigerian faction
+- Fixed WICT if unknown faction is used - camps set to russian by default.
+- Fixed enemy pop if unknown faction is used - defaults to russian camps.
+- Added new Enemy Pop parameters to control how close enemy may be placed and how close they spawn
+- Added RYD HETMAN AI Commander (HAC) as an Enemy Module, added Nou Cache parameters to allow caching to be turned off.
+- WICT Update - http://forums.bistudio.com/showthread.php?p=2088863#89 (thanks Highhead)
+	- Added Mission-Parameter for turning of BLUFOR-Spawning (on/off) in order to preserve performance (setupW.sqf/params.hpp)
+	- Added maximum AI-Group Cap from missionparameters to gain performance
+	- Changed base markers to mil_circle for wict-bases in "show bases"-mode in main.sqf
+	- Fixed wrong base-count in diag_log and debug-hints // tested
+	- Added AI-count debug-hint in corescript.sqf // tested
+	- moved battlefront away from player to near strategic places in corescript.sqf // tested
+
+Missions
+========
+- Added SOM to Zargabad mission
+- Added MSO Tigeria mission
+- Added hospital marker to CLAfghan mission
+- Fixed CLAfghan and Tora Bora US respawn issues.
+
+v4.03
+Core
+====
+- Tupolov is tired
+
+Enemy
+====
+- Fixed WICT so that is restarts after playable units >0
+
+Missions
+========
+- Fixed respawn markers in missions
+
+v4.02
+Core
+====
+- Moved disabledAI to description.ext
+
+Missions
+========
+- added log to make sure WICT restarts
+- Fixed missions with incorrect respawn markers
+- Fixed A2Free CTI mission
+
+v4.01
+Core
+====
+- A2Free patch using DOS diff.exe
+- Disabled Debug Console by default
+- Cleaned up unused modules
+
+Ambience
+========
+- Fixed emergency vehicles not despawning
+
+Missions
+========
+- Commit fixed Chernarus and Utes missions so that respawn markers are compatible with WHB_Multispawn
+- Added 18 slot ACE COOP Zargabad mission
+- Updated init-custom.sqf to place ACRE Radio box near ammo and ammo_1 markers. (Relies on these markers being set in SQM)
+
+v4.0
+Core
+====
+- Provide MSO A2Free support
+- Added MSO version to RPT file
+- Updated initLocations to support Tora Bora
+- Updated NOU Cache as default caching system
+- NEW mso_maker utility to autobuild MSO missions
+- Fixed CLAfghan locations initialisation (fn_initLocations.sqf)
+- Added support for ACRE and ACE in the init-custom.sqf script
+- Added XEH_preinit.sqf to initialise ACRE settings
+- Added ACRESync function to allow players to sync ACRE in case of issues
+- Decreased fog forecast time to max 10 mins
+- Updated Weather & Time module to accept two parameters for time broadcast (for sync check) and acceptable time difference
+- Fixed Nomad to support ACE rucksacks and medical supplies on reconnect
+- Removed ACE respawn code (as it was broken), mission makers should now use the ACE Respawn with Weapons Module for respawn persistence
+- Changed so that only runs on Dedicated server to ensure clients on host MP can use certain objects (Spyder ONU).
+- Added QOM helipads
+- Updated Lingor helipads
+- Added Rockhunt fog system (#17719) (currently disabled until end time bug fixed)
+- Fog enabled by default only between 2am and 8am
+- Added helipad to Utes
+- Move helipad creation from ambient_air to initLocations
+- Changed default view distance in SP to 5000m
+- Remove queued items if no longer collectable (Garbage Collector)
+- Fixed bug showing stats title when not enabled
+- Updated NOU caching
+- Disable debug messages in SP/Editor
+- Change createComposition functions to create objects locally if they are aesthetic (not LandVehicle) for performance enhancement
+- Fixed CWR2 faction names (case-sensitive for ZORA)
+- Fixed CWR2 factions
+- Removed Eden custom CityCenters
+- Fixed TerrainGrid formula
+- Latest MIP updates
+- Changed Garbage Collector to Auto-Scavenge by default
+- Add max view distance mission parameter
+- Added Briefing for MSO in Notes
+- Reduced default view distance to 1500 for clients / 3000 for server
+- Updated MSO Logo image for 3.5 (thank you Tupolov)
+- Added Spyders Object Network Updater (thanks Spyder)
+- Shuffled NOMAD to be at the beginning
+- Fixed _grpcount error in MARTA
+- Changed the Intro text crediting the MSO Development Team (thanks guys)
+- Added MSO logo on start-up
+- Fixed MARTA error
+- Added NOMAD optional class restriction
+- Fixed weather bug not waiting for BIS_fnc_init
+
+Ambient
+====
+- Set ambience modules on as default as all of them have params to turn on or off
+- Disabled DestroyCity by default
+- Added Lingor to vehicle count
+- Fix ambient destroy city params
+- Changed Dummy door creation to createVehicleLocal
+- Updated default Ambient Air parameters so that intensity is 25% and AI engagement is set to never fire.
+- Disable Crows, Flies and Sandstorms by default
+- Reduced vehicle count in Utes
+- Re-enabled Shepherds by default
+- Decreased herd size
+- Added Cicada to ambience settings
+- Re-enabled dogs by default
+- Updated Ambience on Utes
+- Reduced civilian count in Zargabad and Takistan
+- Reduced number of ambient cars in Takistan
+- Added another pier for Lingor (Ambient Sea)
+- Search for hangars across the map, rather than per airfield (Ambient Air)
+- Performance tuned Shepherds (still needs some refactoring I think)
+- Fixed landing of helis on LHD
+- Added additional smoke stacks around Chernarus (AEG)
+- Changed emergency services to spawn/delete when within 3km
+- Fixed residual civs bug by deleting population based on group membership
+- Complete re-write of Ambient Air using set of Waypoints and single Waituntil for when player leaves spawn radius
+- Added clearing of taxi way to NW airport on Chernarus for C130
+- Minor changes to waypoints (sometimes boats will return to port, others will go to second destination or edge of map
+- Changed so Sea traffic only spawns when within 3km of seaport and despawns when outside 3.6km of seaport AND no boats within 3.6km
+- Reduced population count on Chernarus
+- Changed to all Ambient Civs on by default
+- Changed Emergency services on by default
+- Added NE airfield to Chernarus
+- Added cwr2 hospital
+- Fixed Ambient Air, no longer attack units when Never Fire is selected as Rule of Engagement.
+- Fixed Crew chatting at ATC
+- Fixed Civilian aircraft spawning at military airfields
+- Added LoyalGuard's ARMA Electrical Grid (AEG) to MSO
+- Added mission parameters to disable ambient civs, vehicles and animals
+- Moved zGuba's code to custom vehicle init
+- Changed max traffic proportional to civilian population
+- Removed RESPECT flag markers
+- Cached ALICE emptydoors for performance
+- Reduced vehicle count for Utes
+- Changed destroyCity so that fires are only created clientside
+- Changed so that destroyCity works at each BIS location
+- Added Enable Fires option
+- Made stones enabled only with Ambient Civs
+- Added Destroy City module
+- Fixed Animals blacklist issue (#22392)
+
+Support
+====
+- Fixed town manager logging format issue
+- Increased the trigger timeout on Townmgr SEIZED triggers (i.e. capturing forces must spend longer at the location to consider it captured/seized)
+- Fixed Townmgr size issue on dedicated server (introduced with last revision)
+- Updated Townmgr to use friendly text names of locations
+- Updated Townmgr params to clarify options
+- TownMgr now Location and non-Location compatible
+- Fixed broken StringTable if RMM_Recruitment disabled
+- Added open container to list
+- Minimum town size is 250m
+- Fixed location check in town manager - increased radius from CityCenter to NameCity/Village object to 100 (for Utes)
+- Made tasks_fnc_taskAdd backward compatible, ie if no side is provided, then default to playerSide
+- Added RU and GUE recruitment dialogs (thanks Zorrobyte)
+- Turned off debugging of Town Manager :)
+- Update Town Manager to provide more granular control of reports
+- Fixed civilian detection
+- Fixed Seized by and Detection for Guerillas
+- Made JIP Tasks side independent
+- JIP Markers now side independent
+- Add MLRS to R3F liftable objects
+- Added Tom Nedry's LHD elevator (http://www.pzgrenbtl417.eu/) - still not complete
+- Added Dragons Teeth to Logistics
+
+Enemy
+====
+- Fixed WICT issues of throwing a dividing by zero when there are no playableunits
+- Created WICT param to enable/disable
+- Warfare module disabled by default
+- Added Warfare templates
+- Added Warfare files
+- Fixed terror cells so that if no border crossings, cells are spawned in towns/villages
+- Remove SR5 IED support - please use the addon instead
+- Added BIS Warfare module
+- Added WICT enemy module by Highhead (Original by ArmaIIholic)
+- Changed Intensity method (EnemyPop)
+- ZORA was broken since v3.4 days - fixed
+- Prevent creation of Warfare objects
+- Made convoy intel side independent
+- Separated MSO FACTIONS from description.ext
+- [17311] Terrorists react to vehicle inspection. Added script to modify terrorist behavior in vehicles. If they detect BLUFOR they will either get out and fight, run away, surrender or detonate a car bomb near BLUFOR.
+- Added possibility of Terrorist vehicles being booby-trapped.
+- Changed debugging in terrorist cells to log to .rpt
+- Added sanity check if no camps exist for faction
+- Added CWR2 factions
+- Changed startpos and endpos as nearRoads was not returning suitable location (Convoys)
+- Updated destpos for wider search of "safe place" to ensure a valid location is returned (Convoys)
+
+Missions
+====
+- Added Tora Bora mission
+- Added hospital marker for missions requiring CASEVAC
+- Renamed mission folders to include slot numbers and update mso_maker to include in filename and briefingName
+- Updated Highhead's Lingor MSO
+- Updated CLAfghan mission to remove ACEX_USNavy and ACEX references
+- Updated with COOP Podagorsk and TCells Zargabad mission
+- Removed RMM_Revive define from support/modules/modules.hpp for ACE Missions
+- Updated CLAfghan mission with custom enemy params
+- Updated CLAfghan ACE mission with customizations for mso_maker
+- Includes updated briefing, changed default enemy and custom picture
+- Updated BriefingDescription for missions
+- Updated mission naming and briefingName for all missions
+- Added CLAfghan ACE mission
+- Updated A2Free missions
+- Added mission sqms for Takistan ACE and Chernarus ACE
+- Added new Qom Province missions (Vanilla and ACE)
+- Added other ambience missions
+- Added MSO TvT A2CO mission
+
+--------------------------------------------------------------------------------
+
+v3.45
+- Split MSO into Core, Ambient, Support, Enemy and Missions components
+
+Core
+====
+- Removed unused files
+- Added checks for CEP_disableCache flag
+- Added disable cache to groups with player leader
+- Made compatible with JCache
+- Shuffled group/leader and rank to fix Nomad group AI leader bug
+- Changed setVariables to broadcast
+- Added Jaynus Cache module
+- Added Robalo's ACE fix (#21569 - Robalo)
+- Changed method used to check for ACE (thanks Robalo)
+- Added pause if no players are online
+- Added parameter subheadings
+- Updated for compatibility with user made maps where some towns may not have neighbours. Removes error on Tup's Qom Province.
+- Default 50% intensity
+- Added sleeps to waitUntil
+- Remove AI disable commands as they were affecting units 'In Cargo'
+- Fixed missing time field
+- Fixed overwriting of BIS Comms menu
+- Reduced default unit skill level
+- Added waitUntil sleeps to improve Server FPS
+- Added profiling
+- Fixed nomad vehicle positions
+- Default debug to 30 sec
+- Reduced skill to improve CPU performance
+- Added profiling and performance improvements
+- Tidied up Mission Parameters list
+- Added MSO Loop handler and profiler
+- Profiled and performance tuned CORE
+- Profiled and performance tuned ambience
+- Broadcast garbage collector queue
+- Removed Tora Bora until keypoints are placed
+- Added Nou's Caching
+- Added trigger flag to prevent intensity issues
+- Converted say3D to be broadcast
+- converted to MSO Function loop
+- Added MSO Function Loops (thanks Nou for the code)
+- Added custom seasons
+- Added Debug Server FPS to report option
+- Disabled debug by default
+
+Ambient
+====
+- Added ability for AI to land accurately on LHD (using Mando Heliroute)
+- Changed default ROE to Hold fire - defend only
+- Fixed Ambient Air/Sea intensity parameter
+- Slightly increased the chance of dogs
+- Sanity check for SP mode
+- Sanity check if no neighbours are found
+- Corrected CAS Readme.txt to include LDL's AC130 script
+- Fixed Ambient Bomber script errors - Bug #20449
+- Added playable AC130 Spectre Gunship to Qom mission (based on 3.45 CAS updates)
+- Added playable UAV and AC130 for Close Air Support (using LDL's AC130 script)
+- Updated description-mso.ext to support updates to Close Air Support
+- Added parameters to control frequency and number of CAS requests
+- Removed EmptyHeliH from landing destinations to stop helicopters from landing at phantom places
+- Fixed check for hangars and helipads
+- Improved aircraft taxiing and waypoints
+- Added better debugging to Ambient Air
+- Fixed - AirIntensity changes were broken
+- Fixed - Keep getting Duplicate Weapon Throw errors - commented Throw weapon
+- Added pauses for no players and full hangars
+- Changed default intensity to 0.5
+- Added check for Throw weapon
+- Decreased the number of ambient civilians
+- Re-added Remove all weapons to ambient civilians, to prevent surrendering of maps
+- Commented out reference to nil variables in alice2_town.fsm causing errors
+- Fixed typos
+- Fixed issue of duplicate throw weapon being reported
+- Improved ambient aircraft
+- Improved ambient air waypoints
+- Removed invisible Heli Pad at hangars to stop AI from trying to land on top
+- Improved landing and taxiing code by using EventHandler
+- Disabled crows by default
+- Changed order so that sea ambience is started before air to ensure LHD is registered as location for ambient air
+- Added Parameter for spawning an LHD on the map
+- Added LHD to SeaTraffic
+- Added mission parameters to Sandstorms and flies
+- Added stones to random civilians
+- Added Rules of Engagement for Ambient Sea Traffic
+- Added Rule of Engagement parameter for Ambient Air
+- Added check to see if aircraft is damaged by more than 0.4, then delete
+- Updated findVehicleType to include single seat jets
+- Added Rasman Heliport
+- Added Ambient Air Intensity Parameter (25%, 50%, 75%, 100%) - Default = 100%
+- Removed debugging log from Control Tower code
+- Remove private declarations from FSMs
+- Move server check to SQF
+- Pass _this to FSM
+
+Support
+====
+- Implemented Sickboys code for checking for ACRE radio without ACE
+- Added curly braces to fix ACE component not working
+- Added A10 to Towable vehicles for Towing Tractor
+- Added more BAF vehicles (thanks Friznit)
+- Added USMC support (thanks Friznit)
+- Added additional BAF objects (Friznit)
+- Improved BLUFOR and Civilian intel by providing town name or grid locations
+- Added check for towns without buildings
+- Increased search radius for neighbouring towns (1000m)
+- Doesn't quit script without a town - sets the town to the first one found.
+- Added Desert MTVR
+- Added Stryker support for Takistan
+- Fixed TownManager hanging is ALICE not enabled
+- Added WobblyHeadedBobs Respawn Manager
+- Reverts back to old vehicle and resupply scripts
+- Added Engineer to recruitment for BAF and US
+- Added Medic to recruitment for BAF and US
+- Added CASEVAC module (was previously just a menu only)
+- Updated Support Modules.hpp to include CASEVAC
+- Added WobblyHeadedBobs FOB Spawn module
+- Removed broken delay code from vehicle FSM
+
+Enemy
+====
+- Added SR5 profiling
+- Fixed distance text of intel markers
+- Disabled SR5 until dedi support
+- Changed Intensity method for Enemy Populator
+- Increased default random enemy population intensity
+- Added default spawn locations when not signed in or markers not specified
+- Fixed terrorist main.sqf error - expecting object rather than position
+- 90% chance civilians will have 8 stones to throw at BLUFOR if conditions are right
+- Updated rocks to inflict damage
+- Renamed parameters
+- Fixed SR5 IED errors - thanks to Zorrobyte
+- Random civilians have handguns
+- Added Reezo's SR5 IED Detect module
+- Added ZoneKillers Build module
+- Fixed convoy task update
+- Created mission parameter for Enemy Population Intensity
+- Created mission parameters for markers and intensity
+- Fixed bug to stop Terrorist Recruiting on dedicated server
+- Increased default recruitment per cell to 30min to 1hr
+
+Missions
+====
+- Updated Qom Province mission with IED detector based Land Rover and IED Detector AI Engineer
+- Added base Takistan, Chernarus and Qom Province mission.sqm files to mission folder
+- Added Qom Province MSO 3.43 mission
+- Updated Sample Missions to v3.43
+
+--------------------------------------------------------------------------------
+
+v3.4
+- Split MSO into Core, Ambient, Support and Enemy components
+
+Core
+====
+- Complete re-write of scheduling to reduce number of spawns/execVMs and use scheduled server loops
+- Added bordercrossings to Utes for Convoys and Terrorist Cells
+- Added AAW Inko fix to automatically detect ACE
+- Fixed if ACE state is set to nil previously - thanks Sickboy (#18935)
+- Fixed wrong path (#18934)
+- Adjusted player rating to 0, so that any negative activity (killing civilians, animals, stealing civvy cars) has instant repercussions regardless of rank.
+- Committed Rockfakey's fix for ACE backpacks (#17389 rockfakey)
+- Added Everon support (inc auto-creation of CityCenters)
+- Added Torabra support (inc Border Crossings)
+- Added createLocations function for maps that do not have keypoints defined (Tupolov)
+- Updated createLocations to include CityCenters and output auto created locations in config format to the rpt
+- Updated createLocations to create BorderCrossings on roads within 300 meters of edge of map
+- Updated initLocations to call createLocations for maps that are not defined in the case statement
+
+MP_Rights
+- Changed if group leader has rights, group members can pilot and crew
+- Disable MP rights by default
+
+NOMAD
+- Committed Rommel's NOMAD lives reset after 12, 24 and 48 hrs (#17420 Rommel)
+
+Weather
+- Move Timesync to weather module
+- Included rain values in the server weather forecast
+- Max 50% fog density and min 5 mins weather change time(#17886)
+- Client time will sync if +/- 2 mins from server (#17207)
+- Max 4 hrs overcast forecast
+- Max 2 hrs fog and rain forecast
+- Implemented mission time parameters (#18335 - thanks Fogu, Shuko & Muzzleflash)
+- Added DisableFog to mission parameters
+- Disable Fog on by default
+- Disabled instant weather setting
+
+Ambience
+========
+- Updated kylania's Zargabad city bazaar
+
+Ambient Civilians
+- Added randomness to house effects to ensure not every house has their chimney and lights going
+- Fixed to sometimes allow no passengers
+- Always set civilians to be friendly to all sides (see http://creobellum.org/node/185)
+- Removed BIS_CIV_SPECIAL from ambient civilians as rarity is currently not working
+- Added Resistance Friendly settings to prevent civilians disliking BLUFOR (http://creobellum.org/node/185)
+- Updated to BIS MIP Project release 20110315
+- Added Everon HouseFX support
+- Added ALICE2 Traffic passengers
+- Changed ALICE2 Traffic to 3 cars per town (rather than default single car per town)
+- Fixed town faction settings for all ALICE2 Factions for Respect to work correctly
+- Added Limited SpeedMode to civilian walking
+- Fixed Traffic drivers to be of ALICE2 Factions only
+- Set driver skill to 0.5, disableAI and disable Fleeing (to reduce CPU stress)
+- Set max ambient civilian skill level to 0.5 (to reduce CPU stress)
+
+*NEW* Air/Sea Traffic (Tupolov)
+- Added Ambient Sea Traffic Module, contains main.sqf that spawns ships near piers (ends and fuel stations) and boathouses on a map. Boats are spawned based on faction that controls the pier/boathouse. Boats will cycle between its "home" pier/boathouse and a random other.
+- Setup custom island helipad creator (until BIS bug is fixed)
+- Update air traffic to include pilots meeting at Control Tower randomly.
+- Fixed MV22 so that it lands near a hangar rather than on a runway.
+
+Wild dogs
+- Decreased iteration time to ensure pursuit of wilddogs
+- Changed wild dogs parameter to be side dogs spawn as
+- Remove extra sounds from dog attack file
+- Improved wild dogs actions when not active
+- Changed wild dogs from using trigger to using distance to players method (same as Shepherds)- performance improvement
+- Added Cars to objects approached, so dogs will approach you if you're in a vehicle
+- Randomised screaming and yelping consistency (stops the non-stop screaming once the attack is over)
+- Reduced trigger area to 100m
+
+*NEW* Shepherds (Wolffy - concept by PRYMSUSPEC)
+- Use MPKilled EH on dedicated or Killed EH if not
+- Randomly spawn reinforcement shepherd within 500m
+- Changed spawn method so that flock spawns when player within 800m and despawn once out of range (like Wild dogs)
+
+*NEW* Emergency Services (Wolffy)
+- Added civilian ambulances/doctors on SUPPORT waypoints (called in automatically by hurt ambient civilians)
+- Added civilian police on GUARD waypoints (called in automatically by scared ambient civilians)
+
+*NEW* Flocks of crows
+
+*NEW* Swarms of flies
+- Ensure that flies are only triggered once by players
+
+*NEW* Random Sandstorms
+- Ensure that sandstorms are only triggered once by players
+
+Enemy
+=====
+Enemy Populator
+- Changed Camp probability to 1 in 4
+- Always ensure infantry defending camp
+- Created mission parameter for Enemy Population Intensity
+
+Convoys
+- Enabled minimum 1 convoy
+- Fixed convoy task update
+
+*NEW* Terrorist Cells
+- Fixed minimum 1 terrorist cell
+- Created mission parameters for markers and intensity
+- Fixed bug to stop Terrorist Recruiting on dedicated server
+- Increased default recruitment per cell to 30min to 1hr
+
+Support
+=======
+- Optimised Tophe's GuardPost, Vehicle respawn and custom resupply scripts to use PerFrame
+- Changed RESUPPLY and vehicle RESPAWN to support custom weapon cargo/ammo crates
+- Re-wrote Resupply and Vehicle respawn scripts as FSM's
+
+Tasks
+- Move position to terrain level
+- Fixed SHIFT+ALT+Click functionality
+
+*NEW* Town Manager (Wolffy)
+- Added Town Manager support module
+
+JIP Markers
+- Moved time stamp into text field for optional editing
+
+Recruitment
+- Added CZ recruitment
+- Separated AAW DPDUDPCU and DPCU recruitment actions
+
+R3F Logistics
+- Added Landrovers to towing vehicles
+- Added AAW CH47 to lifting vehicles
+- Added AAW CH47, S70 and Bushmasters to cargo transporters
+- Added AAW weapons crates to transportable and liftable contents
+
+--------------------------------------------------------------------------------
+
+v3.31
+- Added Convoy tasks (thanks Kieran)
+- Fixed CAS
+- CAS Increased fly height to 500m
+- Changed caching based on Groups instead of Team Leaders
+- Removed disable simulation of Team Leaders to allow them to continue patrolling
+- Exits caching FSM if all units dead (hopefully fix the zombie respawn bug)
+- Fixed MP rights (mso\mso_uids.txt)
+- Added disable MP Rights mission parameter
+- Implemented Bon's Pilot/Crew checking FSM
+- Added infinite lives mission parameter
+- Renabled ALT+Click and SHIFT+ALT+Click functionality for JIP Tasks and Markers 
+
+Sample missions included:
+- AAW/ACE vs TK_GUE on Takistan
+- BAF vs RU/INS on Chernarus
+- GUE/PMC vs RU/INS on Utes
+- BAF/USA vs TK_GUE on Takistan
+- AAW/ACE vs RU/INS on Chernarus
+
+--------------------------------------------------------------------------------
+
+v3.3 - Initial Release
+Sample missions included:
+- GUE/PMC vs RU/INS on Utes
+- BAF/USA vs TK_GUE on Takistan
+- AAW/ACE vs GUE on Chernarus
+

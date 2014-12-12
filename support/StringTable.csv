@@ -1,0 +1,5 @@
+﻿#include <modules\modules.hpp>
+
+#ifdef RMM_RECRUITMENT
+	#include <modules\rmm_recruitment\TeamStatusDialog\stringtable.csv>
+#endif
