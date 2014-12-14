@@ -9,13 +9,13 @@ class CQBaicap {
 	title = "        CQB AI Limit (per player)";
 	values[]= {0,1,2,3,4,5}; 
 	texts[]= {"Off","15","25","50","100","AUTO"};
-	default = 0;
+	default = 1;
 };
 
 class CQBmaxgrps {
 	title = "        CQB Group limit";
 	values[]= {144,10,25,50,75,100}; 
 	texts[]= {"Off","10","25","50","75","100"};
-	default = 144;
+	default = 10;
 };
 

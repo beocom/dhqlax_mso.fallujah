@@ -14,19 +14,19 @@ class tup_ied_threat {
         title = "        Ambient IED Threat"; 
         values[]= {0,50,100,200,350}; 
         texts[]= {"None","Low","Med","High","Extreme"}; 
-        default = 50;
+        default = 100;
 };
 class tup_suicide_threat {
         title = "        Ambient Suicide Bomber Threat"; 
         values[]= {0,10,20,30,50}; 
         texts[]= {"None","Low","Med","High","Extreme"}; 
-        default = 10;
+        default = 20;
 };
 class tup_vbied_threat {
         title = "        Ambient VB-IEDs"; 
         values[]= {0,5,10,15,30}; 
         texts[]= {"None","Low","Med","High","Extreme"}; 
-        default = 5;
+        default = 10;
 };
 class tup_ied_eod{
         title = "        Integrate with EOD Add-on (if available)"; 

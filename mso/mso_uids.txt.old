@@ -1,0 +1,6 @@
+[
+	["1234", 	"CORPORAL",	["crew"]],	/*namex*/
+	["4567", 	"PRIVATE",		["pilot"]],	/*namey*/
+	["7890",	"LIEUTENANT",	["admin"]],	/*adminx*/
+	["6789", "SERGEANT",	["pilot","crew"]] /*namez*/
+]
