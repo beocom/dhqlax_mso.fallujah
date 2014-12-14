@@ -43,7 +43,8 @@ class Mission
 		"ace_main",
 		"mas_us_seals_ACE",
 		"CAAir_E_AH6J",
-		"ace_sys_repair"
+		"ace_sys_repair",
+		"caweapons_ammoboxes"
 	};
 	addOnsAuto[]=
 	{
@@ -85,12 +86,13 @@ class Mission
 		"acex_usnavy_c_weapon",
 		"CAAir_E_AH6J",
 		"ace_sys_repair",
+		"caweapons_ammoboxes",
 		"fallujah_v1_0"
 	};
 	randomSeed=14131847;
 	class Intel
 	{
-		briefingName="MSO 32 ACEX COOP USA VS TAK INS 4.55";
+		briefingName="DHQLAX MSO Fallujah";
 		resistanceWest=0;
 		resistanceEast=1;
 		startWeather=0;
@@ -98,7 +100,7 @@ class Mission
 		year=2012;
 		month=8;
 		day=2;
-		hour=12;
+		hour=16;
 		minute=0;
 	};
 	class Groups
@@ -547,7 +549,7 @@ class Mission
 					vehicle="mas_us_seals_ace_dcu_tl";
 					player="PLAYER COMMANDER";
 					leader=1;
-					rank="CAPTAIN";
+					rank="LIEUTENANT";
 					skill=0.60000002;
 					text="alpha_1";
 					description="Squad Command [DHQL]Beocom";
@@ -601,7 +603,7 @@ class Mission
 					side="WEST";
 					vehicle="mas_us_seals_ace_dcu_gl";
 					player="PLAY CDG";
-					rank="LIEUTENANT";
+					rank="SERGEANT";
 					skill=0.46666661;
 					text="alpha_5";
 					description="Fireteam Leader [DHQL]Pedersen";
@@ -615,7 +617,7 @@ class Mission
 					side="WEST";
 					vehicle="mas_us_seals_ace_dcu_mg";
 					player="PLAY CDG";
-					rank="SERGEANT";
+					rank="CORPORAL";
 					skill=0.33333331;
 					text="alpha_6";
 					description="Automatic Gunner [DHQL]Miles Long";
@@ -629,7 +631,6 @@ class Mission
 					side="WEST";
 					vehicle="mas_us_seals_ace_dcu_at";
 					player="PLAY CDG";
-					rank="CORPORAL";
 					skill=0.2;
 					text="alpha_7";
 					description="AT Rifleman [DHQL]Blaahval";
@@ -656,7 +657,7 @@ class Mission
 					side="WEST";
 					vehicle="mas_us_seals_ace_dcu_gl";
 					player="PLAY CDG";
-					rank="LIEUTENANT";
+					rank="SERGEANT";
 					skill=0.33333331;
 					text="alpha_9";
 					description="Fireteam Leader [DHQL]Piekartz";
@@ -670,7 +671,7 @@ class Mission
 					side="WEST";
 					vehicle="mas_us_seals_ace_dcu_mg";
 					player="PLAY CDG";
-					rank="SERGEANT";
+					rank="CORPORAL";
 					skill=0.33333331;
 					text="alpha_10";
 					description="Marksman [DHQL]SpLitMo";
@@ -684,7 +685,6 @@ class Mission
 					side="WEST";
 					vehicle="mas_us_seals_ace_dcu_brc";
 					player="PLAY CDG";
-					rank="CORPORAL";
 					skill=0.33333331;
 					text="alpha_11";
 					description="AT Rifleman [DHQL]Sideshow";
@@ -810,7 +810,7 @@ class Mission
 					player="PLAY CDG";
 					leader=1;
 					lock="UNLOCKED";
-					rank="LIEUTENANT";
+					rank="SERGEANT";
 					skill=0.60000002;
 					text="Echo_1";
 					description="Löjtnant [DHQL]Cojjan";
@@ -825,7 +825,7 @@ class Mission
 					vehicle="US_Soldier_Pilot_EP1";
 					player="PLAY CDG";
 					lock="UNLOCKED";
-					rank="SERGEANT";
+					rank="CORPORAL";
 					skill=0.60000002;
 					text="Echo_2";
 				};
@@ -834,7 +834,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=332;
+		items=334;
 		class Item0
 		{
 			position[]={5719.4619,7,9791.8486};
@@ -4355,6 +4355,26 @@ class Mission
 			side="EMPTY";
 			vehicle="ACE_Spare_Tyre_HDAPC";
 			skill=0.60000002;
+			init="0 = [this, 14400] execVM ""support\scripts\resupply.sqf"";";
+		};
+		class Item332
+		{
+			position[]={5782.6147,7,9944.8721};
+			azimut=590.99103;
+			id=374;
+			side="EMPTY";
+			vehicle="USVehicleBox";
+			skill=0.2;
+			init="0 = [this, 14400] execVM ""support\scripts\resupply.sqf"";";
+		};
+		class Item333
+		{
+			position[]={5781.2471,7,9943.6162};
+			azimut=590.99103;
+			id=375;
+			side="EMPTY";
+			vehicle="ACE_USVehicleBox_EP1";
+			skill=0.2;
 			init="0 = [this, 14400] execVM ""support\scripts\resupply.sqf"";";
 		};
 	};
