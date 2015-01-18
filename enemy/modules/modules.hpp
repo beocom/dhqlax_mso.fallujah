@@ -4,7 +4,7 @@
 #define RMM_ENEMYPOP
 #define ROY_PATROLOPS
 //#define RMM_ZORA
-#define TUP_IED
+//#define TUP_IED
 
 // - To Test
 #define CRB_CONVOYS

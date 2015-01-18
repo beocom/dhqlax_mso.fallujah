@@ -2,7 +2,7 @@ class tup_ied_header{
         title = "    Ambient IEDs and Suicide Bombers"; 
         values[]= {0,1}; 
         texts[]= {"Off","On"}; 
-        default = 1;
+        default = 0;
 };
 class tup_ied_enemy {
         title = "        Towns with IEDs"; 
