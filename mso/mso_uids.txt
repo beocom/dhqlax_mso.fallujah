@@ -1,20 +1,14 @@
 [
-	["76561197970373778", 	"CAPTAIN",	["admin"]],				/*[DHQL]Beocom*/
-	["76561197969434440", 	"SERGEANT",	["admin"]],				/*[DHQL]Phats*/
-	["76561197969434440", 	"SERGEANT",	["crew"]],				/*[DHQL]NorthernViking*/
-	
-
-	["76561197989211425", 	"LIEUTENANT",	["pilot","crew"]],	/*[DHQL]Pedersen*/
-	["76561198071489298", 	"SERGEANT",	["pilot","crew"]],		/*[DHQL]Miles Long*/
-	["                 ", 	"CORPORAL",	["crew"]],				/*[DHQL]blaahval*/
-	["76561198093041473", 	"PRIVATE",	["crew"]],				/*[DHQL]Link*/
-
-	["76561197963640854", 	"LIEUTENANT",	["pilot","crew"]],	/*[DHQL]Piekartz*/
-	["76561197970366835", 	"SERGEANT",	["pilot","crew"]],		/*[DHQL]SpLitMo*/
-	["                 ", 	"CORPORAL",	["crew"]],				/*[DHQL]SideShow*/
-	["                 ", 	"PRIVATE",	["crew"]],				/*[DHQL]Ninjah*/
-	
-	["                 ", 	"LIEUTENANT",	["pilot","crew"]],	/*[DHQL]Cojan*/
-
-	
+	["76561197970373778", "LIEUTENANT",["admin"]],				/*[DHQL]Beocom*/
+	["76561197969434440", "SERGEANT",["admin"]],				/*[DHQL]Phats*/
+	["76561197991723487", "PRIVATE",["crew"]],				/*[DHQL]NorthernViking*/
+	["76561197989211425", "SERGEANT",["pilot","crew"]],	/*[DHQL]Pedersen*/
+	["76561198071489298", "CORPORAL",["pilot","crew"]],		/*[DHQL]Miles Long*/
+	["76561197996599807", "PRIVATE",["crew"]],				/*[DHQL]blaahval*/
+	["76561198093041473", "PRIVATE",["crew"]],				/*[DHQL]Link*/
+	["76561197963640854", "SERGEANT",["pilot","crew"]],	/*[DHQL]Piekartz*/
+	["76561197970366835", "CORPORAL",["pilot","crew"]],		/*[DHQL]SpLitMo*/
+	["76561198090060766", "PRIVATE",["crew"]],				/*[DHQL]SideShow*/
+	["76561198076087244", "PRIVATE",["crew"]],				/*[DHQL]Ninjah*/	
+	/*["                 ", "SERGEANT",["pilot","crew"]],	[DHQL]Cojan*/
 ]
