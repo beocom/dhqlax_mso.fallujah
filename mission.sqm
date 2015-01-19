@@ -834,7 +834,7 @@ class Mission
 	};
 	class Vehicles
 	{
-		items=334;
+		items=336;
 		class Item0
 		{
 			position[]={5719.4619,7,9791.8486};
@@ -2953,7 +2953,7 @@ class Mission
 		};
 		class Item197
 		{
-			position[]={5800.2109,7,9762.1816};
+			position[]={5800.7563,7,9762.1582};
 			azimut=649.18188;
 			id=213;
 			side="EMPTY";
@@ -4377,6 +4377,26 @@ class Mission
 			skill=0.2;
 			init="0 = [this, 14400] execVM ""support\scripts\resupply.sqf"";";
 		};
+		class Item334
+		{
+			position[]={2890.438,6.9800172,5700.3101};
+			id=376;
+			side="EMPTY";
+			vehicle="ACE_WeaponBox_USMC";
+			skill=0.60000002;
+			text="mso_dhqlax_001";
+		};
+		class Item335
+		{
+			position[]={2884.5156,6.9800172,5715.5151};
+			azimut=165;
+			id=377;
+			side="EMPTY";
+			vehicle="M1130_HQ_unfolded_Base_EP1";
+			leader=1;
+			skill=0.2;
+			init="0 = this execVM ""support\modules\rmm_recruitment\addAction.sqf""; this setVariable [""MHQState"",1,true];this addAction [""Set Spawn"", ""support\modules\WHB_Multispawn\common\fn_Action_SignInFOB.sqf"", position player, 0, false, true, """", ""true""];";
+		};
 	};
 	class Markers
 	{
@@ -4511,13 +4531,13 @@ class Mission
 		};
 		class Item16
 		{
-			position[]={5663.5039,7,9859.2197};
+			position[]={5664.1143,7,9860.1357};
 			name="base_spawn_1";
 			type="Empty";
 		};
 		class Item17
 		{
-			position[]={5663.5522,7,9859.249};
+			position[]={5664.1499,7,9860.0039};
 			name="base_spawn_1_1";
 			type="Empty";
 		};

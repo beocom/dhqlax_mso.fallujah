@@ -2,7 +2,7 @@ class tup_ied_header{
         title = "    Ambient IEDs and Suicide Bombers"; 
         values[]= {0,1}; 
         texts[]= {"Off","On"}; 
-        default = 0;
+        default = 1;
 };
 class tup_ied_enemy {
         title = "        Towns with IEDs"; 
@@ -14,19 +14,19 @@ class tup_ied_threat {
         title = "        Ambient IED Threat"; 
         values[]= {0,50,100,200,350}; 
         texts[]= {"None","Low","Med","High","Extreme"}; 
-        default = 100;
+        default = 200;
 };
 class tup_suicide_threat {
         title = "        Ambient Suicide Bomber Threat"; 
         values[]= {0,10,20,30,50}; 
         texts[]= {"None","Low","Med","High","Extreme"}; 
-        default = 20;
+        default = 30;
 };
 class tup_vbied_threat {
         title = "        Ambient VB-IEDs"; 
         values[]= {0,5,10,15,30}; 
         texts[]= {"None","Low","Med","High","Extreme"}; 
-        default = 10;
+        default = 15;
 };
 class tup_ied_eod{
         title = "        Integrate with EOD Add-on (if available)"; 
